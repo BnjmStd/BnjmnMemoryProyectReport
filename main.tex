@@ -1,0 +1,282 @@
+\documentclass[12pt]{article}
+\usepackage[spanish, es-tabla]{babel} % Para que las tablas digan "tabla" en vez de "cuadro"
+\usepackage{afterpage}
+\usepackage{graphicx}
+\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}  
+\usepackage[utf8]{inputenc}
+\usepackage{epstopdf}
+\usepackage{fullpage}
+\usepackage{epigraph}
+\usepackage{alltt}
+\usepackage{url}
+\usepackage{colortbl}
+\usepackage{lscape}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{rotating} % Imágenes de lado
+\usepackage{array} % Para las tablas
+\usepackage{makecell} % lo mismo
+\usepackage[font=small,labelfont=bf]{caption} % Hacer que los caption (texto debajo de imagenes o cosas, sea mas chico)
+\hypersetup{citecolor=red, linkcolor=blue} % Color de los links y las citaciones
+\graphicspath{ {./figures/} } % Agrupar las imágenes en una carpeta
+\linespread{1.3} % Espaciado
+\renewcommand\theadfont{\bfseries} % Para que el título de las tablas sea en negrita
+
+\begin{document}
+
+% Logo
+\begin{figure}[!ht]
+    \vspace{-5mm}
+    \centering
+        \includegraphics[scale=0.14]{logo.png}
+\end{figure}
+
+\begin{center}
+\begin{LARGE}
+    \rule{14cm}{0.5mm}
+    \textbf{Implementación de un pipeline para el análisis de bacterias} \\
+    \vspace{1mm} % vspace
+    \rule{14cm}{0.5mm}
+    \vspace{1cm}
+\end{LARGE}
+\end{center}
+\begin{center}
+    \begin{large}
+        Memoria para optar al título de ingeniero civil en bioinformática.
+    \end{large}
+\end{center}
+\vfill % vfill es para rellenar espacio vertical, o sea, patea todo hacia abajo
+\thispagestyle{empty} % para que no se añada el número de página
+\noindent % Para no tener sangría al inicio de un texto
+\emph{\textbf{Nombre:}} \hfill \emph{\textbf{Fecha:}} \\ % hfill rellena el espacio horizontal, osea, patea todo a la derecha
+Benjamín Astudillo Alarcón \hfill Julio, 2024\\
+\emph{\textbf{Profesor Tutor:}} \hfill \emph{\textbf{Profesor Informante:}} \\
+Dra. Karen Oróstica \hfill  Dr. José Reyes\\
+\emph{\textbf{Profesor Encargado:}}\\
+Dra. Wendy Gonzalez \\
+\newpage
+\emph{Esta página es dejada en blanco a propósito}
+%\newpage
+%\section*{Agradecimientos}
+
+%\hfill \emph{B. Astudillo}
+
+\newpage
+{
+    \hypersetup{linkcolor=black} % color de las secciones en la página
+    \tableofcontents % Genera la tabla de contenidos (Indice)
+}
+\newpage
+{
+    \hypersetup{linkcolor=black} % color de las secciones en la página
+    \listoftables % Genera la tabla de contenidos (Indice)
+}
+\newpage
+{
+    \hypersetup{linkcolor=black} % color de las secciones en la página
+    \listoffigures % Genera la tabla de contenidos (Indice)
+}
+\newpage
+\section*{Resumen}
+La bioinformática es un campo de la ciencia en el cual confluyen varias disciplinas: biología, computación y tecnología de la información. Esta definición procede del NCBI (Centro Nacional para la Información Biotecnológica de EUA) y tiene como objetivo crear bases de datos públicas de libre acceso, crear investigación en biología computacional, desarrollar programas para análisis de secuencias y difundir la información biomédica.\par 
+En la actualidad se disponen de varias bases de datos con información biológica; los investigadores pueden acceder a los datos existentes y suministrar o revisar datos, así como utilizar la información para realizar análisis comparativos entre secuencias de nucleótidos y aminoácidos. En el campo de la resistencia bacteriana, la bioinformática se emplea para la asignación funcional de genes por medio de comparaciones con secuencias (ADN o proteínas) previamente existentes en el GenBank. En este mismo sentido y debido al aumento de enfermedades provocadas por agentes patógenos infecciosos, se hace imprescindible continuar investigando las bacterias para identificar características que puedan mejorar  la resistencia o la calidad de los antibióticos, así como las terapias génicas.\par
+En razón de lo anterior, es que este trabajo tiene como propósito desarrollar un Pipeline Bioinformático que integre herramientas  computacionales necesarias para el procesamiento y  análisis genómico de bacterias, que establezca un flujo predefinido que permita automatizar el proceso, haciendo que cada etapa del trabajo sea visible, facilitando de esta manera, el control sobre el avance de la tarea, sin necesidad de un aumento de los recursos,  disminuyendo además, la posibilidad de errores y  propiciando una evolución constante, que permita mayor y mejor accesibilidad a otros investigadores.\par
+Para este efecto, se priorizaron métodos de análisis genómicos y se automatizó un reporte final, además de estructurar la implementación y empaquetamiento del pipeline.\par
+Se pretende que el pipeline sea utilizado por investigadores y profesionales no especializados en bioinformática, mejorando así la accesibilidad y reproducibilidad  de los análisis genómicos. Así también, permitirá integrar el pipeline con otras herramientas y base de datos relevantes, facilitando la interoperabilidad y la reutilización en proyectos futuros.\par
+
+\vspace{10pt}
+\textbf{\emph{Palabras claves: pipeline, anotación, bioinformática, secuenciación, resistencia bacteriana, datos genómicos.}}
+
+
+
+\newpage
+
+\section{Introducción}
+
+
+\section{Objetivos}
+Para llevar a cabo nuestro estudio consideraremos los siguientes casos. Asumiremos que los genes que pertenecen a rutas HKG se transcriben en todo momento del ciclo celular y que por lo tanto, las rutas HKG se traslapan entre sí en todo momento. Las rutas No-HKG no se expresan en todo momento del ciclo celular, pero sí se traslapan con rutas HKG en un momento del ciclo celular. Y finalmente, asumiremos que dos rutas no HKG no se traslapan entre sí. Con lo anterior compararemos 3 casos: 
+\begin{enumerate}
+    \item La diferencia de composición de TEs entre dos rutas HKG, que se transcriben al mismo tiempo.
+    \item La diferencia de composición de TEs entre dos rutas No-HKG, que no se transcriben al mismo tiempo.
+    \item La diferencia de composición de TEs entre una ruta HKG y una No-HKG, que solo se traslapan durante un momento del ciclo celular.
+\end{enumerate}
+\subsection{Objetivo general}
+Verificar si la composición de TEs en intrones entre parejas de genes pertenecientes a una misma ruta metabólica es más similar entre sí que entre parejas de genes que pertenecen a diferentes rutas metabólicas que no se expresan al mismo tiempo.
+\subsection{Objetivos específicos}
+\begin{enumerate}
+    \item Identificar genes que formen parte del conjunto ``House Keeping Genes'' con sus respectivas rutas HKG y parejas de rutas metabólicas No-HKG que se lleven a cabo en momentos distintos con sus respectivos genes.
+    \item Calcular la diferencia de composición de TEs en intrones entre parejas de genes pertenecientes a cada una de las rutas metabólicas identificadas, y la diferencia de composición entre parejas de rutas metabólicas de los grupos: HKG, No-HKG y entre ambos.
+    \item Calcular niveles de significancia estadística en las diferencias obtenidas entre parejas de genes.
+\end{enumerate}
+\newpage
+El cálculo de la composición relativa de TEs de cada gen será obtenido de la siguiente forma:
+\begin{equation}
+    \frac{N_{TE}}{N_{Total}} = F_{TE}
+    \label{eq:freqRelativa}
+\end{equation}
+Donde $N_{TE}$ es la cantidad de observaciones de una familia o superfamilia de TEs particular y $N_{Total}$ es la cantidad total de TEs observados en cada gen y $F_{TE}$ es la frecuencia relativa de una familia o superfamilia respecto al total de TEs observados. Con esto obtuvimos los vectores T20R, N75R y T6R, donde la R al final denota que es un vector de frecuencia relativa.
+
+\begin{figure}[ht!]
+    \centering
+    \small
+    \vspace*{-10mm}
+    \includegraphics[scale=0.6]{T6N-M-In.png}
+    \caption{Comparación entre los promedios de distancias euclidianas promedio entre rutas metabólicas (o distancias internas promedio) usando como vector T6R. Las líneas verticales de color rojo y azul representan el promedio y la mediana, respectivamente. Los promedios y medianas se encuentran en su contexto de datos en forma de histograma (barras verticales) y la correspondiente curva de densidad de kernel estimada (o KDE, representada por la línea continua en azul, que aproximadamente contorna el histograma). a) (Arriba) Rutas metabólicas HKG (promedio = 0,1598; mediana = 0,0669; n = 10); b) (Abajo) Rutas metabólicas no-HKG (promedio = 0,3031; mediana = 0,3198; n = 235). El eje X está en la misma escala para comparación. El eje Y no está en la misma escala para mejor visualización.}
+    \label{T6R-M-In}
+\end{figure}
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|} % Cantidad de celdas y como alinear el texto
+        \hline % Línea horizontal entre filas 
+        \textbf{Tipo de vector} & \textbf{HKG} & \textbf{No-HKG} & \textbf{Parcial-HKG} \\ \hline 
+        T6N & \makecell{\textbf{N}: 26 $\boldsymbol\mu$: 0,1154 \\ \textbf{M}: 0,1167 \textbf{\emph{s}}: 0,0800 } &
+        \makecell{\textbf{N}: 3.457 $\boldsymbol\mu$: 0,1373 \\ \textbf{M}: 0,1332 \textbf{\emph{s}}: 0,0744 } &
+        \makecell{\textbf{N}: 22.155 $\boldsymbol\mu$: 0,1447 \\ \textbf{M}: 0,1409 \textbf{\emph{s}}: 0,0782 } \\ \hline
+        T6R & \makecell{\textbf{N}: 26 $\boldsymbol\mu$: 0,2111 \\ \textbf{M}: 0,1848 \textbf{\emph{s}}: 0,1697 } &
+        \makecell{\textbf{N}: 3.457 $\boldsymbol\mu$: 0,3467 \\ \textbf{M}: 0,2962 \textbf{\emph{s}}: 0,2195 } &
+        \makecell{\textbf{N}: 22.155 $\boldsymbol\mu$: 0,3698 \\ \textbf{M}: 0,3178 \textbf{\emph{s}}: 0,2247 }\\ \hline
+        T6-OCC & \makecell{\textbf{N}: 26 $\boldsymbol\mu$: 0,2323 \\ \textbf{M}: 0,2166 \textbf{\emph{s}}: 0,1719 } &
+        \makecell{\textbf{N}: 3.457 $\boldsymbol\mu$: 0,4432 \\ \textbf{M}: 0,4067 \textbf{\emph{s}}: 0,2518 } &
+        \makecell{\textbf{N}: 22.155 $\boldsymbol\mu$: 0,4411 \\ \textbf{M}: 0,4069 \textbf{\emph{s}}: 0,2444 } \\ \hline
+
+    \end{tabular}
+    \caption{Resumen de distancias entre parejas de genes pertenecientes a una misma ruta (distancia interna). Las filas representan el tipo de vector que se esta usando en las rutas de cada columna . \textbf{N} es la cantidad comparaciones de parejas de genes. $\boldsymbol\mu$ es la media de distancias. \textbf{M} es la mediana de las distancias y \textbf{\emph{s}} es la desviación estándar.}
+    \label{res1}
+\end{table}
+\clearpage 
+\section{Anexos}
+\subsection{Anexo 1: Cálculo de vectores de composición}
+
+\begin{figure}[ht!]
+    \centering
+    \small
+    \includegraphics[scale=0.35]{barplot.png}
+    \caption{Comparación entre las proporciones del número de TEs anotados en zonas intrónicas (color cyan) vs. zonas intergénicas (color salmón). Cada barra representa un organismo modelo. De izquierda a derecha: \emph{Drosophila melanogaster} (mosca de la fruta); \emph{Danio rerio} (Pez zebra); \emph{Homo sapiens} (humano) y, \emph{Mus musculus} (ratón).}
+    \label{fig:distribucion}
+\end{figure}
+
+Para ilustrar mejor cómo se crean estos vectores tomemos en consideración el siguiente ejemplo.
+Un determinado gen contiene los siguientes TEs en sus intrones (ejemplo real de un archivo de conteos):
+\begin{verbatim}
+     34 Alu
+      2 CR1
+      2 ERVL
+      1 ERVL-MaLR
+      1 hAT-Blackjack
+      6 hAT-Charlie
+     19 L1
+      9 L2
+     18 MIR
+      3 RTE-X
+      1 TcMar-Tigger
+\end{verbatim}
+Al ser este convertido a un vector de conteo absoluto obtenemos los siguientes conteos: 
+\begin{equation*}
+    Vec_{T20} =
+    \begin{Bmatrix}
+        Alu\\
+        L1\\
+        MIR\\
+        L2\\
+        ERVL-MaLR\\
+        hAT-Charlie\\
+        ERV1\\
+        ERVL\\
+        TcMar-Tigger\\
+        CR1\\
+        hAT-Tip100\\
+        hAT-Blackjack\\
+        Gypsy\\
+        TcMar-Mariner\\
+        RTE-X\\
+        ERVK\\
+        RTE-BovB\\
+        hAT\\
+        TcMar-Tc2\\
+        Others\\
+    \end{Bmatrix}
+    =
+    \begin{Bmatrix}
+34\\
+19\\
+18\\
+9\\
+1\\
+6\\
+0\\
+2\\
+1\\
+2\\
+0\\
+1\\
+0\\
+0\\
+3\\
+0\\
+0\\
+0\\
+0\\
+0\\
+    \end{Bmatrix}
+\end{equation*}
+Dado que este gen tiene unbenaj total de 96 TEs, el vector de composición relativa se obtiene dividiendo cada una de las dimensiones del vector por este número total, obteniendo el siguiente vector: 
+
+\begin{equation*}
+    Vec_{T20R} =
+    \begin{Bmatrix}
+        Alu\\
+        L1\\
+        MIR\\
+        L2\\
+        ERVL-MaLR\\
+        hAT-Charlie\\
+        ERV1\\
+        ERVL\\
+        TcMar-Tigger\\
+        CR1\\
+        hAT-Tip100\\
+        hAT-Blackjack\\
+        Gypsy\\
+        TcMar-Mariner\\
+        RTE-X\\
+        ERVK\\
+        RTE-BovB\\
+        hAT\\
+        TcMar-Tc2\\
+        Others\\
+    \end{Bmatrix}
+    =
+    \begin{Bmatrix}
+	0.3541666666666667\\
+	0.19791666666666666\\
+	0.1875\\
+	0.09375\\
+	0.010416666666666666\\
+	0.0625\\
+	0.0\\
+	0.020833333333333332\\
+	0.010416666666666666\\
+	0.020833333333333332\\
+	0\\
+	0.010416666666666666\\
+	0.0\\
+	0.0\\
+	0.03125\\
+	0.0\\
+	0.0\\
+	0.0\\
+	0.0\\
+	0.0\\
+    \end{Bmatrix}
+\end{equation*}
+Podemos aplicar esta misma lógica para construir los vectores de ocupancia, solo debemos reemplazar los conteos por la ocupancia de una familia de TEs al interior del gen, y dividirlo por la suma total.
+A continuación se detalla la forma que tienen los 2 tipos de vectores restantes. Los vectores N75 tienen la siguiente forma:
+
+\clearpage
+\singlespacing % reduce el espacio entre citas
+\bibliographystyle{ieeetr} % Estilo de citación, cambia como se escribe al final y como aparecen las citas en texto
+\bibliography{} % Las referencias están en un archivo aparte
+
+\end{document}
