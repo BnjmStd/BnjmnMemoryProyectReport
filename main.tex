@@ -90,25 +90,89 @@ Se pretende que el pipeline sea utilizado por investigadores y profesionales no 
 
 
 \newpage
-
 \section{Introducción}
 
+\newpage
+\section{Plantamiento del Problema}
+El rápido avance  de la secuenciación de genomas bacterianos, ha llevado a una acumulación masiva de datos genómicos que requieren análisis profundos que permitan comprender la diversidad, evolución y funcionalidad de estos microorganismos. Sin embargo, el acceso a herramientas de análisis adecuadas y la interpretación de los resultados siguen siendo un desafío para muchos científicos del área, especialmente en lo que respecta a la reproducibilidad y escalabilidad de los flujos de trabajo bioinformáticos. Se hace imprescindible entonces, disponer de un flujo predefinido, que permita automatizar el proceso, haciendo que cada etapa del trabajo sea visible, facilitando de esta manera, el control sobre el avance de la tarea. sin necesidad de un aumento de los recursos,  disminuyendo la posibilidad de errores y  propiciando una evolución constante que permita mayor y mejor accesibilidad a otros investigadores.
 
+\newpage
 \section{Objetivos}
-Para llevar a cabo nuestro estudio consideraremos los siguientes casos. Asumiremos que los genes que pertenecen a rutas HKG se transcriben en todo momento del ciclo celular y que por lo tanto, las rutas HKG se traslapan entre sí en todo momento. Las rutas No-HKG no se expresan en todo momento del ciclo celular, pero sí se traslapan con rutas HKG en un momento del ciclo celular. Y finalmente, asumiremos que dos rutas no HKG no se traslapan entre sí. Con lo anterior compararemos 3 casos: 
-\begin{enumerate}
-    \item La diferencia de composición de TEs entre dos rutas HKG, que se transcriben al mismo tiempo.
-    \item La diferencia de composición de TEs entre dos rutas No-HKG, que no se transcriben al mismo tiempo.
-    \item La diferencia de composición de TEs entre una ruta HKG y una No-HKG, que solo se traslapan durante un momento del ciclo celular.
-\end{enumerate}
 \subsection{Objetivo general}
-Verificar si la composición de TEs en intrones entre parejas de genes pertenecientes a una misma ruta metabólica es más similar entre sí que entre parejas de genes que pertenecen a diferentes rutas metabólicas que no se expresan al mismo tiempo.
+Desarrollar un Pipeline Bioinformático que integre herramientas  computacionales necesarias para el procesamiento y  análisis genómico de bacterias noveles con potencial biotecnológico, permitiendo de esta manera la generación de reportes automatizados.
 \subsection{Objetivos específicos}
 \begin{enumerate}
-    \item Identificar genes que formen parte del conjunto ``House Keeping Genes'' con sus respectivas rutas HKG y parejas de rutas metabólicas No-HKG que se lleven a cabo en momentos distintos con sus respectivos genes.
-    \item Calcular la diferencia de composición de TEs en intrones entre parejas de genes pertenecientes a cada una de las rutas metabólicas identificadas, y la diferencia de composición entre parejas de rutas metabólicas de los grupos: HKG, No-HKG y entre ambos.
-    \item Calcular niveles de significancia estadística en las diferencias obtenidas entre parejas de genes.
+    \item Priorizar los métodos de análisis genómico y anotación funcional principales para la exploración de bacterias noveles con potencial biotecnológico.
+    \item Desarrollar un pipeline bioinformático basado en la caracterización de necesidades de análisis genómicos previos.
+    \item Definir estructura del reporte Automatizar la generación de reportes de resultados de secuenciación y de anotación funcional a partir de datos genómicos.
 \end{enumerate}
+
+
+\newpage
+\section{Estado del arte}
+En este  capítulo se plantea una revisión del estado del arte en relación a los flujos bioinformáticos existentes, que permiten mayor eficiencia en el análisis de la genómica bacteriana.
+De acuerdo a lo anterior, se presentan algunas experiencias vinculadas a flujos de trabajo, con respecto  a la obtención de información metagenómica.
+Este capítulo permitirá visualizar enfoques metagenómicos aplicados a distintas investigaciones, flujos bioinformaticos que permiten la aplicación de pipelines asociados a  la información que se obtiene de las etapas de cada investigación.
+
+\subsection*{Metagenomic and network analysis revealed wide distribution of antibiotic resistance genes in monkey gut microbiota}
+Este artículo tiene como objetivo utilizar el enfoque metagenómico, para descubrir la comunidad bacteriana en el mono NHP - cynomolgus. Se busca identificar diferentes genes de resistencia antibiótica, explorar la relación entre las bacterias, para identificar posibles riesgos para la salud, a partir de las heces del mono.
+
+Los autores mencionan, el flujo de trabajo realizado posterior a la recopilación de datos, para realizar un análisis bioinformático. Se realizó en primer lugar un análisis , a través de la herramienta MetaPhlAn2, y una visualización del árbol taxonómico utilizando GrapPhlAn. Además, se explica detalladamente cómo se generó un modelo de aprendizaje automático utilizando el algoritmo RF (Bosque Aleatorio) en Python.  En el caso de la anotación funcional de genes de resistencia antibiótica, se explica que para realizar la anotación de todas las proteínas identificadas, se realizó una búsqueda de similitud de secuencia con la herramienta Diamond Blastp, usando la base de datos ARGminer. Los últimos análisis corresponden a análisis estadísticos y de redes usando la plataforma R versión 3.5.1. De esta manera, se evaluó las diferencias en la abundancia de genes de resistencia antibiótica entre diferentes grupos de tratamiento dietético, se realizaron visualizaciones de las relaciones entre las muestras de cada grupo de monos cynomolgus y una visualización aluvial para comprender cómo los genes se distribuyen.
+
+Finalmente, con el objetivo de revelar cuáles son las diferencias entre los genes de NHP y de humanos como una red, para obtener más información sobre la obesidad, diabetes tipo II y diferentes enfermedades coronarias en el humano debido a la similitud con el ser humano.
+
+
+
+\subsection*{Overview of bioinformatic methods for analysis of antibiotic resistome from genome and metagenome data}
+Este artículo menciona los diferentes flujos de trabajo bioinformáticos que se realizan para el análisis de resistencia antibiótica ya sea a partir de un genoma o de información metagenómica.  De esta manera, se expone la importancia que tiene el secuenciar genomas completos, y el que tan necesario es poder analizar los datos, recurriendo a flujos de trabajo bioinformáticos. Cada flujo de trabajo, posee diferentes herramientas y recursos específicos que ayudan al análisis. Dentro de los flujos de trabajo, el primero describe el pre procesamiento y ensamblaje de las lecturas de datos de WGS destacando la importancia que tiene la calidad de las lecturas. Dentro de este flujo se habla sobre omitir el paso del ensamble con el fin de acelerar el proceso computacional en bacterias monomórficas. En otros casos, van desde la identificación taxonómica a nivel de especie, nivel de mutación y de cepa.
+
+\subsection*{LGAAP: Leishmaniinae Genome Assembly and Annotation Pipeline}
+Este artículo describe un proceso computacional para el ensamblaje y anotación de genomas de un tamaño aproximado de ~35 mb. El autor, menciona qué parámetros utilizan, en qué orden fueron ejecutados las herramientas y qué datos fueron analizados.  De esta manera, se utilizaron 6 genomas de la subfamilia del parásito Leishmaniinae, que presentaba lecturas cortas, y largas. Además se describe cuales son los archivos de salida, que son el ensamblaje a escala de cromosomas, las proteínas y transcripciones en formato FASTA, dos archivos GFF, uno con las características y otro con las coordenadas.
+
+\subsection*{A Pipeline for Non-model Organisms for de novo Transcriptome Assembly, Annotation, and Gene Ontology Analysis Using Open Tools: Case Study with Scots Pine }
+Esta publicación describe el flujo bioinformático utilizado para el ensamblaje del transcriptoma, la anotación y el análisis de ontología genética del pino silvestre Pinus Sylvestris. El procedimiento descrito muestra un requisito básico de conocimientos en bioinformática  y línea de comandos linux. De esta manera, el autor realiza un análisis que describe y clasifica los genes y productos génicos de acuerdo a su función molecular, implicación en los procesos biológicos y localización celular.
+
+
+\newpage
+\section{Materiales y métodos}
+
+\newpage
+\section{Resultados}
+
+\newpage
+\section{Discusión}
+La búsqueda bibliográfica permitió identificar diferentes herramientas que permiten una correcta ejecución del flujo de trabajo del grupo seleccionado para la identificación de genes de resistencia antibiótica, se tuvo dificultades para instalar y ejecutar la gran mayoría de las opciones. La documentación, reflejaba una instalación basada en contenedor, lo que dificulta la instalación del ejecutable en nuestro propio ambiente de ejecución. Es por lo anterior, que se prefirió la utilización de un software que utiliza las bases de datos para la comparación como Resfinder o de NCBI para generar la identificación y anotación de los genes. 
+
+El diseño del flujo de trabajo, no presenta la posibilidad de seleccionar la herramienta a usar para los análisis, si no que por el contrario, existen herramientas predefinidas, detrás de la activación de la funcionalidad del usuario. Aquí, nace la posibilidad  de evaluar si en futuras versiones, darle la cualidad al usuario de seleccionar la herramienta a usar por análisis mejoraría la usabilidad y rendimiento del flujo de trabajo. 
+
+El diseño actual, presente en este trabajo brinda la posibilidad de ejecutar diferentes análisis, con el único objetivo de mejorar la automatización de diversas herramientas bioinformáticas, sin duda, el servicio de este flujo de trabajo puede ser un instrumento potencialmente favorable para su utilización en investigaciones. De lo anterior, nace la problemática de seguir mejorando la automatización, optimizando el código, encontrando nuevas funcionalidad que vayan escalando junto al lenguaje de Nextflow.
+
+Dentro del flujo de trabajo se optó por agregar diferentes funcionalidades que le ofrezcan al usuario una mejor “calidad de vida” y una mayor automatización, como la descarga de genomas de referencia, la utilización de SRA Toolkit para la descarga de las muestras en formato .fastq, la posibilidad de descomprimir directamente los archivos desde el flujo de trabajo o como también la descarga de las bases de datos para el análisis taxonómico. Sin duda, ninguna de estas funcionalidades intenta aumentar el tamaño de la imágen de docker, o disminuir el rendimiento, se tendrá que evaluar la usabilidad de cada una de estas características.
+
+Una de las funcionalidades más importantes, es la implementación de un reporte final automatizado, que brinda la posibilidad al usuario de obtener la información de los procesos ejecutados de manera resumida. Sin duda, la implementación marcó un desafío, ya que, el lenguaje base del flujo de trabajo está escrito en Nextflow. Este lenguaje no brinda la funcionalidad de ejecutar otro proceso terminado el flujo de trabajo principal, que serían todos los procesos seleccionados por el usuario. De esta manera, se tuvo que generar un canal para generar una dependencia y que reciba los resultados de cada proceso ejecutado y así detectar el momento en que los procesos del “flujo principal” terminen. Esta manera de detectar cuándo ejecutar el proceso que realiza el informe, sin duda, marca una lentitud en el rendimiento general y puede ser mejorada con alguna actualización de Nextflow futura.
+
+	
+La ejecución de los casos de estudios, se realizaron bajo un ambiente de bajo rendimiento, en un computador con 7 GB de RAM lo cual limitó nuestra capacidad de procesamiento de datos. Las restricciones de memoria afectaron significativamente la capacidad para ejecutar herramientas bioinformáticas intensivas en recursos como Kraken 2 y Spades de manera eficiente. Para manejar estas limitaciones, utilizamos varias estrategias. Ocupamos versiones más ligeras de las bases de datos y ejecutamos los análisis en fragmentos más pequeños de datos en lugar de analizar muestras completas de una vez. Lo cual, se puede observar, en la base de datos utilizada en el proceso de identificación taxonómica donde se utilizó la colección de muestras virales de un tamaño de 0.5 GB . Otro ejemplo claro, es la utilización de las primeras 500 lecturas de escherichia coli y no el genoma de la muestra completo. Además, se implementaron técnicas de optimización de memoria, como la liberación de caché y el uso de datos comprimidos que permitieron completar los análisis, pero también presentaron desafíos, como tiempos de ejecución prolongados y la necesidad de realizar múltiples repeticiones para verificar los resultados. Es por esto, que para futuros usos, se recomienda el uso de sistemas con mayor capacidad de memoria acelerando los tiempos de análisis,y brindando la opción de usar datos de entrada más grandes. Es decir, las limitaciones de hardware presentaron desafíos significativos, y que si no es por las estrategias o adaptaciones, no se hubieran llevado a cabo. Sin embargo, mejorar los recursos computacionales es esencial para optimizar futuros estudios en análisis bioinformáticos y genómica bacteriana.
+
+La documentación del flujo de trabajo en Github, está estructurada de forma que tiene secciones bien definidas que guían al usuario desde la instalación inicial, la configuración hasta la ejecución completa del pipeline. Cada sección incluye una descripción que ayuda a los usuarios a comprender no sólo el cómo funcionan si no que también el por qué detrás de cada etapa. Sin embargo, es claro mencionar que algunas secciones podrían mejorar su claridad con ejemplos más elaborados, y explicaciones adicionales.
+	
+Es importante que la documentación se mantenga actualizada con cualquier cambio del flujo de trabajo, o del repositorio. Así mismo, al usar Github, existe la posibilidad de abrir issues y discusiones en el repositorio lo que permite que los usuarios puedan colaborar tanto en la mejora de la documentación como en el flujo.
+
+El empaquetamiento del flujo de trabajo, permite poder garantizar la reproducibilidad sin importar el ambiente de ejecución del usuario, sin embargo, es necesario seguir mejorando y optimizando la imagen final a utilizar. En el caso de que en el trabajo futuro se agreguen más herramientas y dependencias, se hace imprescindible la necesidad de tener una imagen base más liviana. El flujo de trabajo actual, utiliza la última versión de ubuntu hasta la fecha, esto permite tener más facilidad al tener una gama de dependencias base más amplia pero con la consecuencia de un mayor peso neto en la descarga. 
+
+
+
+\newpage
+\section{Conclusión}
+Los flujos de trabajo automatizados, reducen el tiempo necesario para realizar análisis y permite al investigador enfocarse, concentrarse en la interpretación de los resultados. De esta manera, optimizando el uso de recursos computacionales y el capital humano. En investigaciones que requieren análisis rápidos, la utilización de flujos de trabajo permite obtener una visualización general del panorama a investigar. Sin embargo, es importante destacar la capacidad dinámica y versátil de las herramientas bioinformáticas, las cuales ofrecen una gran flexibilidad para adaptarse a diferentes necesidades y contextos de investigación. Ofreciendo una mayor capacidad, cuando se tiene un mayor conocimiento sobre la herramienta.
+
+
+El diseño del flujo de trabajo actual, permite poder escalar fácilmente para manejar un mayor conjunto de herramientas o para manejar grandes volúmenes de datos. Lo anterior, es especialmente importante en estudios de área de la genómica bacteriana, donde se pueden realizar múltiples muestras simultáneamente. Es decir, la capacidad de integrar diversas herramientas bioinformáticas dentro de un único flujo de trabajo permite un análisis más completo y detallado donde puede adaptarse y personalizarse para satisfacer necesidades específicas de diferentes contextos. 
+
+
+La documentación detallada, que abarca desde la instalación hasta ejemplos de uso, facilita la utilización de flujos de trabajo por parte de investigadores con diferentes niveles de experiencia en bioinformática. Esto permite a la comunidad contribuir a la mejora continua de estos flujos de trabajo mediante la actualización de herramientas y la incorporación de nuevas metodologías a través de solicitudes de cambio en GitHub. De esta manera, se asegura que los flujos de trabajo se mantengan al día con los avances tecnológicos, así como la corrección de errores y la implementación de mejoras en la calidad de vida.
+
+
 \newpage
 El cálculo de la composición relativa de TEs de cada gen será obtenido de la siguiente forma:
 \begin{equation}
@@ -277,6 +341,6 @@ A continuación se detalla la forma que tienen los 2 tipos de vectores restantes
 \clearpage
 \singlespacing % reduce el espacio entre citas
 \bibliographystyle{ieeetr} % Estilo de citación, cambia como se escribe al final y como aparecen las citas en texto
-\bibliography{} % Las referencias están en un archivo aparte
+\bibliography{main.bbl} % Las referencias están en un archivo aparte
 
 \end{document}
