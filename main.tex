@@ -16,6 +16,8 @@
 \usepackage{rotating} % Imágenes de lado
 \usepackage{array} % Para las tablas
 \usepackage{makecell} % lo mismo
+\usepackage{parskip} % Paquete para manejar espaciado entre párrafos
+\setlength{\parindent}{15pt} % Sangría al inicio de párrafos
 \usepackage[font=small,labelfont=bf]{caption} % Hacer que los caption (texto debajo de imagenes o cosas, sea mas chico)
 \hypersetup{citecolor=red, linkcolor=blue} % Color de los links y las citaciones
 \graphicspath{ {./figures/} } % Agrupar las imágenes en una carpeta
@@ -91,6 +93,279 @@ Se pretende que el pipeline sea utilizado por investigadores y profesionales no 
 
 \newpage
 \section{Introducción}
+
+Se considera genoma a toda la información biológica que tiene un organismo. 
+La mayoría de los genomas, incluyendo el ser humano y toda forma de vida celular, 
+está compuesto por la totalidad de ADN [1], que se encuentra en una célula, 
+ya sea en los cromosomas o en organelos llamados mitocondrias. Por ejemplo, 
+si se habla del genoma humano, este se refiere a la totalidad de ADN presente en una 
+célula reproductiva normal. Así pues, en los últimos años, se ha perfeccionado la 
+tecnología para obtener la secuencia completa de ADN de una especie de una forma rápida 
+y eficiente. Por tanto, actualmente es posible saber el genoma de muchos organismos 
+vivos [1].
+
+Así mismo y a través de técnicas de análisis genómico, se logra caracterizar 
+bacterias, permitiendo entender cómo funcionan y qué papel desempeñan en diferentes 
+contextos biológicos. Igualmente, los diferentes tipos de análisis genómicos varían 
+dependiendo del objetivo de cada investigación. Sin embargo, para poder comenzar 
+cualquier tipo de caracterización, es crucial disponer de datos de secuenciación del
+genoma completo (\emph{WGS}). El ensamblaje del genoma, a partir de estos datos, es un paso 
+fundamental en este proceso, ya que proporciona una representación coherente y completa 
+del genoma bacteriano. Este ensamblaje permite realizar análisis más precisos y 
+detallados, como la anotación de genes, la identificación de regiones funcionales, la 
+comparación con otros genomas y detección de ARG [2].
+
+En definitiva, el ensamblaje bacteriano, implica un preprocesamiento de las 
+lecturas, un montaje de las lecturas y en varios casos un paso adicional de pulido el 
+montaje. En este sentido, lograr desarrollar un ensamblaje de calidad, significa que 
+se deben generar contigs (fragmentos continuos de secuencia) con pocos espacios restantes, 
+baja tasa de error, entre otros. Es decir, la generación de un buen rendimiento depende 
+totalmente de las herramientas y parámetros utilizados en las plataformas de 
+secuenciación [2]. 
+
+En resumen, una vez que se tiene el montaje realizado, se pueden hacer los análisis 
+respectivos, ya sea para la identificación de las funciones biológicas, procesos 
+celulares, o ontología genética entre otros [3]. Para realizar los análisis es necesario 
+la utilización de diversas herramientas bioinformáticas o recurrir a flujos de trabajo 
+computacionales, con herramientas y recursos específicos que ayuden o 
+faciliten el proceso [2].
+
+En suma, será cada vez más común acceder a grandes bancos de información genómica, 
+utilizar algoritmos sofisticados y realizar análisis de datos desde nuestras 
+terminales personales, sin tener que generar nuestra propia infraestructura informática o 
+contar con el apoyo de expertos en informática. Es así como, la investigación biológica que 
+utiliza información genómica se convierte cada vez más en una actividad computacional, 
+analizando cantidades gigantescas de datos desde la comodidad de nuestras computadoras 
+personales [4].
+
+\subsection*{Desafíos del Análisis de Big Data en Genómica Bacteriana}
+
+Cuando hablamos de Big Data nos referimos a conjuntos de datos o combinaciones de 
+conjuntos de datos cuyo tamaño (volumen), complejidad (variabilidad) y velocidad de 
+crecimiento dificultan su gestión, procesamiento o análisis mediante tecnologías y 
+herramientas convencionales, tales como bases de datos relacionales y estadísticas 
+convencionales o paquetes de visualización, dentro del tiempo necesario para que 
+sean útiles [5].
+
+Por otra parte, la genómica se encarga de determinar y analizar la secuencia 
+completa de ADN de un organismo, es decir, de un genoma. Por lo tanto, es el 
+estudio de la totalidad de los genes de un organismo para comprender su organización, 
+función, interacción y evolución molecular [1]. En cuanto a los desafíos que plantea 
+el análisis de Big Data en la genómica bacteriana, podemos señalar que el avance de la 
+secuenciación de alto rendimiento o nueva generación [6], permite obtener una rebaja en 
+los costos de rendimiento y un gran aumento en el tamaño de los datos de secuenciación 
+generados, permitiendo una mejor claridad de la taxonomía y una mejor capacidad para 
+evaluar las diferentes capacidades del sistema secuenciado [7].
+
+Todo lo anterior, significa que cada vez tenemos una cantidad mayor de datos, 
+lo que nos lleva a utilizar técnicas y tecnologías de big data, data mining y 
+data science para procesarlos y extraer información útil de ellos [8].
+
+\subsection*{Herramientas y experiencias de desarrollo en tareas de procesamiento y gestión de datos en bioinformática}
+
+El aumento en el poder de procesamiento y sofisticación de las herramientas y técnicas 
+analíticas ha dado como resultado para la gestión y procesamiento de datos, la 
+creación de estructuras y programas que proporcionan almacenamiento, funcionalidad y 
+receptividad a las consultas, que van más allá de las bases de datos destinadas a 
+transacciones. El área de bioinformática, en este sentido, enfoca parte de su trabajo 
+en el procesamiento de datos, donde se requieren herramientas con suficiente flexibilidad 
+con el fin de dar soporte a las tareas propias del manejo de formatos de almacenamiento y 
+métodos de procesamiento, reduciendo de esta manera, la dimensionalidad del espacio de 
+trabajo [9].
+
+\subsection*{Comandos Unix}
+
+Los comandos Unix corresponden a  pequeños programas que se pueden ejecutar de varias 
+formas, entre ellas, de forma interactiva desde una terminal. Gran parte de los servidores 
+están basados en sistemas Unix, como Solaris, BSD, HP-UX, así como las distintas 
+distribuciones de Linux que también son muy utilizadas en el ámbito personal, entre 
+ellas Ubuntu, Debian, CentOS, Red Hat, etc. También MacOS está basado en Unix [10].
+
+Estos programas se pueden encontrar  al introducir un comando en una terminal, el 
+intérprete de comandos lo busca en directorios incluidos en lo que se denomina PATH. El PATH 
+es una variable de entorno que contiene una lista con los directorios del sistema 
+más comunes para almacenar ejecutables, por ejemplo /bin o /usr/bin. Para ver los 
+directorios que contiene el PATH, podemos ejecutar el comando echo \$PATH. Si se 
+ejecuta un comando que el sistema no encuentra, es debido a que no está en ninguno de 
+estos directorios [10].
+
+En sistemas de tipo Unix, es bastante común usar la terminal para moverse de un 
+lado a otro y realizar las acciones desde allí, en lugar de usar un explorador de 
+archivos o cualquier otro programa con interfaz gráfica [10]. 
+
+\subsection*{Bash Scripting}
+
+Un Bash Shell Script corresponde a un archivo de texto sin formato que 
+contiene un conjunto de varios comandos que normalmente escribimos en la 
+línea de comandos. Se utiliza para automatizar tareas repetitivas en el 
+sistema de archivos Linux. Puede incluir un conjunto de comandos, o un solo 
+comando, o puede contener las características de la programación imperativa como 
+bucles, funciones, construcciones condicionales, etc. Efectivamente, un script 
+Bash es un programa de computadora escrito en el lenguaje de programación Bash [11].
+
+Bash, es un procesador de comandos que generalmente se ejecuta en una ventana de 
+texto, donde el usuario escribe comandos que causan acciones. Bash también puede 
+leer y ejecutar comandos desde un archivo, llamado script de shell.  Conocer los 
+comandos y el manejo de scripts en Bash es esencial para llevar a cabo multitud de 
+tareas bioinformáticas, el hecho de que nos permite realizar scripts que operan 
+directamente sobre comandos del sistema, nos permitirá automatizar tareas, ahorrando 
+mucho tiempo y esfuerzo [12].
+
+\subsection*{Pipeless y Pipeline}
+
+Un pipeless puede considerarse como un agente autónomo, experto en la 
+realización de una tarea específica; recibe una o más entradas que pueden 
+provenir del propio usuario o de otros pipeless [9].
+
+Por otra parte, los pipelines constituyen una conexión secuencial de 
+pipeless, y  la salida de un pipeless corresponderá a la entrada del siguiente. 
+El pipeless de inicio puede contener varias entradas. La estrategia de pipelines 
+expone una solución que permite desencadenar una serie de procesos controlados, 
+realizando incluso pasos intermedios de formateo de datos según los requerimientos 
+de cada pipeless en particular; esto optimiza tanto el uso de recursos informáticos 
+como el tiempo, disminuyendo críticamente el tiempo muerto entre 
+ejecución y ejecución [9].
+
+Entre las experiencias de uso de pipelines se pueden mencionar trabajos 
+relacionados con la comparación fenotípica, que incorpora la selección de propiedades 
+y la distribución y estadística asociada a variables asociadas a la selección, además 
+de la categorización y comparación final. Otro ejemplo de uso se asocia a la 
+caracterización de funciones en un contexto evolutivo, donde se producen selecciones 
+de secuencias, visualización y análisis de estructuras secundarias, identificación 
+de interacciones sistémicas, análisis y visualización de resultados y por último la 
+selección de datos [9].
+
+En resumen, la estrategia de pipelines en distintos proyectos permite abordar de 
+forma efectiva el sistema de gestión de datos, generando una nueva forma de abordaje 
+a problemas complejos, especialmente en lo relacionado a la genómica comparativa. 
+Cabe mencionar, que la creación de nuevos pipelines estará limitada sólo por la 
+capacidad del usuario para generar flujos de trabajo adecuados que permitan su 
+ejecución.
+
+\subsection*{Flujo de trabajo con Nextflow}
+
+Este texto, nos lleva a entender cómo los avances experimentados por las 
+tecnologías de secuenciación han desembocado en un mayor número de experimentos 
+ómicos (nuevos campos de investigación) que requieren de análisis reproducibles 
+de cantidades ingentes de datos. En este sentido, las primeras aproximaciones 
+de herramientas bioinformáticas -pipelines-, que se desarrollaron para este 
+cometido, sufren de inestabilidad numérica (numerical instability) cuando 
+el mismo pipeline se usa en diferentes plataformas, de forma que se imposibilita 
+la reproducibilidad de los trabajos [14]. 
+
+De acuerdo a lo anterior, Nextflow nace como lenguaje para la construcción de 
+pipelines mejorando el uso de los recursos informáticos, controlando el 
+flujo de datos de entrada y salida y manteniendo un registro de todas las 
+actividades desarrolladas al fin de poder seguir el flujo de trabajo mismo, 
+corregir errores eventuales y mantener un registro de los comandos ejecutados. 
+Esta herramienta constituye un sistema de gestión de flujos de trabajo que utiliza 
+distintas infraestructuras informáticas como Docker, Conda, Singularity, etc. 
+para el manejo a gran escala mediante el uso de los que se conocen como “contenedores”. 
+Estos últimos son entornos de computación configurados de tal forma que 
+solamente admiten las entradas y salidas de datos para lo que se han 
+desarrollado [14]. Las características que hacen de Nextflow una 
+herramienta útil y flexible para la creación de pipelines son la posibilidad 
+integración en repositorios de software como BitBucket, cuya página web se 
+corresponde con la dirección https://bitbucket.org/ o GitHub, https://github.com/, 
+un soporte nativo para sistemas en la nube. Además, se basa en el uso de 
+contenedores multiescala, y de la paralelización de los procesos que se 
+conectan mediante canales. Todas estas características mejoran la 
+reproducibilidad computacional y posicionan a Nextflow como un lenguaje de 
+dominio específico que adelanta a sus competidores. 
+
+Un pipeline implementado en Nexflow puede contener cualquier 
+lenguaje - incluso varios diferentes – compatible con Linux, como Python 
+o Perl. Los procesos dentro de dicho pipeline estarían conectados mediante 
+canales o colas FIFO asíncronas, ejecutándose en paralelo e independientemente 
+cuando el input que requieren esté disponible. Un mismo proceso puede tener varios 
+inputs y outputs, y diferentes procesos pueden tener un mismo input que llega a 
+través de canales diferentes. En Nextflow se encuentran dos tipos distintos de 
+canales: - Canal de colas (queue channel): cola FIFO no bloqueante 
+y unidireccional. Este tipo de canal conecta dos procesos, es decir, el 
+canal solo se puede usar una única vez como salida y solo una vez como 
+entrada. En el caso de necesitar que se conecten varios procesos es posible 
+duplicar – triplicar, cuadruplicar, … – un canal de colas mediante el 
+operador into. - Canal de valores (value channel) o canal singleton: canal 
+que contiene un solo valor, por lo que se puede emplear ilimitadamente 
+como input sin ser consumido [14].
+
+Por otro lado, Nextflow crea directorios únicos y 
+temporales para cada proceso del pipeline, lo que implica que no es 
+necesario organizar los outputs y facilita la gestión de estos, ya que no 
+se requiere una estructura de directorios organizada o nombrar los archivos 
+de forma estática para su identificación inequívoca. Más aún, en cada proceso 
+no es imprescindible nombrar cada archivo de salida, pues al existir directorios 
+únicos para cada proceso, no se produce la superposición entre archivos. También, 
+es posible relacionar los outputs con metadatos mediante el operador tuple para 
+evitar incluirlos en el nombre del archivo de salida [14].
+
+\subsection*{Contenerización}
+
+El procedimiento de contenerización se ha convertido en la última palabra en 
+cuanto a informática en la nube,  Es más eficiente que la virtualización, y es 
+su evolución natural. Mientras que la virtualización es vital para distribuir 
+varios sistemas operativos (SO) en un único servidor, la contenerización es más 
+flexible y granular. Se centra en dividir los sistemas operativos en fragmentos 
+que pueden utilizarse de manera más eficiente. Además, un contenedor de aplicaciones 
+proporciona una forma de empaquetar aplicaciones en un entorno portátil definido por 
+software [15]. 
+
+Es una forma de virtualización del SO en la que se ejecutan aplicaciones en 
+espacios de usuario aislados llamados contenedores, que utilizan el mismo SO 
+compartido. Un contenedor de aplicaciones es un entorno informático portátil y 
+totalmente empaquetado:
+
+\begin{itemize}
+    \item Tiene todo lo que una aplicación necesita ejecutar, incluidos sus 
+        binarios, bibliotecas, dependencias y archivos de configuración, todo 
+        encapsulado y aislado en un contenedor.
+    \item La contenerización de una aplicación abstrae el contenedor del 
+        sistema operativo host, y proporciona acceso limitado a los recursos 
+        subyacentes, un proceso similar al de una máquina virtual ligera.
+    \item Puede ejecutar la aplicación en contenedores en varios tipos de 
+        infraestructuras, como en estructuras físicas, en la nube o dentro de 
+        máquinas virtuales, sin tener que refactorizar para cada entorno [15].
+\end{itemize}
+
+Aunque los conceptos de contenerización y aislamiento de procesos tienen 
+décadas de antigüedad, la aparición de un motor de Docker de código abierto en 
+2013 aceleró la adopción de la tecnología de contenedores de aplicaciones. 
+El motor de Docker se convirtió en un estándar de la industria para el proceso 
+de contenerización con un enfoque de empaquetado universal y herramientas de 
+desarrollo simples [15].
+
+\subsection*{Motor de Docker}
+
+Docker es una plataforma de código abierto que permite a los desarrolladores 
+crear, desplegar, ejecutar y gestionar contenedores, que son componentes 
+estandarizados y ejecutables que combinan el código fuente de aplicación con 
+las dependencias y las bibliotecas del sistema operativo (SO) necesarias para 
+ejecutar dicho código en cualquier entorno [16].
+
+Los contenedores simplifican el desarrollo y la entrega de aplicaciones 
+distribuidas y han ido ganando popularidad con la transición de las organizaciones 
+hacia entornos híbridos multi nube y de desarrollo nativo en la nube.  
+Los desarrolladores pueden crear contenedores sin Docker trabajando directamente 
+con las funciones integradas en Linux y otros sistemas operativos, pero la 
+contenerización que realiza Docker es más rápida, más fácil y más segura [16].
+
+La tecnología Docker utiliza el kernel de Linux y sus funciones, como los grupos 
+de control y los espacios de nombre, para dividir los procesos y ejecutarlos de 
+manera independiente. El propósito de los contenedores es ejecutar varios procesos 
+y aplicaciones por separado para que se pueda aprovechar mejor la infraestructura y, 
+al mismo tiempo, conservar la seguridad que se obtendría con los 
+sistemas individuales. [17] Las herramientas de los contenedores, 
+como Docker, proporcionan un modelo de implementación basado en imágenes. 
+Esto permite compartir fácilmente una aplicación o un conjunto de servicios, 
+con todas las dependencias en varios entornos. Docker también automatiza la 
+implementación de las aplicaciones (o los conjuntos de procesos que las constituyen) 
+en el entorno de contenedores [17].
+
+Estas herramientas están diseñadas a partir de los contenedores de Linux, por 
+eso la tecnología Docker es sencilla y única. Además, ofrecen a los usuarios 
+acceso sin precedentes a las aplicaciones, la posibilidad de realizar 
+implementaciones en poco tiempo y el control sobre las versiones y 
+su distribución [17].
 
 \newpage
 \section{Plantamiento del Problema}
