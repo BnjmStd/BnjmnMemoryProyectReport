@@ -374,67 +374,375 @@ El rápido avance  de la secuenciación de genomas bacterianos, ha llevado a una
 \newpage
 \section{Objetivos}
 \subsection{Objetivo general}
-Desarrollar un Pipeline Bioinformático que integre herramientas  computacionales necesarias para el procesamiento y  análisis genómico de bacterias noveles con potencial biotecnológico, permitiendo de esta manera la generación de reportes automatizados.
+Desarrollar un Pipeline Bioinformático que integre herramientas  computacionales 
+necesarias para el procesamiento y  análisis genómico de bacterias noveles con potencial 
+biotecnológico, permitiendo de esta manera la generación de reportes automatizados.
 \subsection{Objetivos específicos}
 \begin{enumerate}
-    \item Priorizar los métodos de análisis genómico y anotación funcional principales para la exploración de bacterias noveles con potencial biotecnológico.
-    \item Desarrollar un pipeline bioinformático basado en la caracterización de necesidades de análisis genómicos previos.
-    \item Definir estructura del reporte Automatizar la generación de reportes de resultados de secuenciación y de anotación funcional a partir de datos genómicos.
+    \item Priorizar los métodos de análisis genómico y anotación funcional 
+        principales para la exploración de bacterias noveles con potencial biotecnológico.
+    \item Desarrollar un pipeline bioinformático basado en la caracterización de 
+        necesidades de análisis genómicos previos.
+    \item Definir estructura del reporte Automatizar la generación de reportes de 
+        resultados de secuenciación y de anotación funcional a partir de datos genómicos.
 \end{enumerate}
 
 
 \newpage
 \section{Estado del arte}
-En este  capítulo se plantea una revisión del estado del arte en relación a los flujos bioinformáticos existentes, que permiten mayor eficiencia en el análisis de la genómica bacteriana.
-De acuerdo a lo anterior, se presentan algunas experiencias vinculadas a flujos de trabajo, con respecto  a la obtención de información metagenómica.
-Este capítulo permitirá visualizar enfoques metagenómicos aplicados a distintas investigaciones, flujos bioinformaticos que permiten la aplicación de pipelines asociados a  la información que se obtiene de las etapas de cada investigación.
+En este  capítulo se plantea una revisión del estado del arte en relación a los flujos 
+bioinformáticos existentes, que permiten mayor eficiencia en el análisis de la genómica 
+bacteriana.
+
+De acuerdo a lo anterior, se presentan algunas experiencias vinculadas a 
+flujos de trabajo, con respecto  a la obtención de información metagenómica.
+
+Este capítulo permitirá visualizar enfoques metagenómicos aplicados a 
+distintas investigaciones, flujos bioinformaticos que permiten la aplicación de 
+pipelines asociados a  la información que se obtiene de las etapas de cada investigación.
 
 \subsection*{Metagenomic and network analysis revealed wide distribution of antibiotic resistance genes in monkey gut microbiota}
-Este artículo tiene como objetivo utilizar el enfoque metagenómico, para descubrir la comunidad bacteriana en el mono NHP - cynomolgus. Se busca identificar diferentes genes de resistencia antibiótica, explorar la relación entre las bacterias, para identificar posibles riesgos para la salud, a partir de las heces del mono.
+Este artículo tiene como objetivo utilizar el enfoque metagenómico, para descubrir la 
+comunidad bacteriana en el mono NHP - cynomolgus. Se busca identificar diferentes genes de 
+resistencia antibiótica, explorar la relación entre las bacterias, para identificar 
+posibles riesgos para la salud, a partir de las heces del mono.
 
-Los autores mencionan, el flujo de trabajo realizado posterior a la recopilación de datos, para realizar un análisis bioinformático. Se realizó en primer lugar un análisis , a través de la herramienta MetaPhlAn2, y una visualización del árbol taxonómico utilizando GrapPhlAn. Además, se explica detalladamente cómo se generó un modelo de aprendizaje automático utilizando el algoritmo RF (Bosque Aleatorio) en Python.  En el caso de la anotación funcional de genes de resistencia antibiótica, se explica que para realizar la anotación de todas las proteínas identificadas, se realizó una búsqueda de similitud de secuencia con la herramienta Diamond Blastp, usando la base de datos ARGminer. Los últimos análisis corresponden a análisis estadísticos y de redes usando la plataforma R versión 3.5.1. De esta manera, se evaluó las diferencias en la abundancia de genes de resistencia antibiótica entre diferentes grupos de tratamiento dietético, se realizaron visualizaciones de las relaciones entre las muestras de cada grupo de monos cynomolgus y una visualización aluvial para comprender cómo los genes se distribuyen.
+Los autores mencionan, el flujo de trabajo realizado posterior a la recopilación de datos,
+para realizar un análisis bioinformático. Se realizó en primer lugar un análisis , a 
+través de la herramienta MetaPhlAn2, y una visualización del árbol taxonómico utilizando 
+GrapPhlAn. Además, se explica detalladamente cómo se generó un modelo de aprendizaje 
+automático utilizando el algoritmo RF (\emph{bosque aleatorio}) en Python.  En el caso de la 
+anotación funcional de genes de resistencia antibiótica, se explica que 
+para realizar la anotación de todas las proteínas identificadas, se realizó una 
+búsqueda de similitud de secuencia con la herramienta Diamond Blastp, usando la 
+base de datos ARGminer. Los últimos análisis corresponden a análisis estadísticos y 
+de redes usando la plataforma R versión 3.5.1. De esta manera, se evaluó las diferencias en 
+la abundancia de genes de resistencia antibiótica entre diferentes grupos de 
+tratamiento dietético, se realizaron visualizaciones de las relaciones entre las 
+muestras de cada grupo de monos cynomolgus y una visualización aluvial para comprender cómo 
+los genes se distribuyen.
 
-Finalmente, con el objetivo de revelar cuáles son las diferencias entre los genes de NHP y de humanos como una red, para obtener más información sobre la obesidad, diabetes tipo II y diferentes enfermedades coronarias en el humano debido a la similitud con el ser humano.
-
-
+Finalmente, con el objetivo de revelar cuáles son las diferencias entre los genes de 
+NHP y de humanos como una red, para obtener más información sobre la obesidad, 
+diabetes tipo II y diferentes enfermedades coronarias en el humano debido a la similitud 
+con el ser humano.
 
 \subsection*{Overview of bioinformatic methods for analysis of antibiotic resistome from genome and metagenome data}
-Este artículo menciona los diferentes flujos de trabajo bioinformáticos que se realizan para el análisis de resistencia antibiótica ya sea a partir de un genoma o de información metagenómica.  De esta manera, se expone la importancia que tiene el secuenciar genomas completos, y el que tan necesario es poder analizar los datos, recurriendo a flujos de trabajo bioinformáticos. Cada flujo de trabajo, posee diferentes herramientas y recursos específicos que ayudan al análisis. Dentro de los flujos de trabajo, el primero describe el pre procesamiento y ensamblaje de las lecturas de datos de WGS destacando la importancia que tiene la calidad de las lecturas. Dentro de este flujo se habla sobre omitir el paso del ensamble con el fin de acelerar el proceso computacional en bacterias monomórficas. En otros casos, van desde la identificación taxonómica a nivel de especie, nivel de mutación y de cepa.
+Este artículo menciona los diferentes flujos de trabajo bioinformáticos que se realizan 
+para el análisis de resistencia antibiótica ya sea a partir de un genoma o de información 
+metagenómica.  De esta manera, se expone la importancia que tiene el secuenciar genomas 
+completos, y el que tan necesario es poder analizar los datos, recurriendo a flujos de 
+trabajo bioinformáticos. Cada flujo de trabajo, posee diferentes herramientas y recursos 
+específicos que ayudan al análisis. Dentro de los flujos de trabajo, el primero describe el 
+pre procesamiento y ensamblaje de las lecturas de datos de WGS destacando la importancia 
+que tiene la calidad de las lecturas. Dentro de este flujo se habla sobre omitir el 
+paso del ensamble con el fin de acelerar el proceso computacional en bacterias monomórficas. 
+En otros casos, van desde la identificación taxonómica a nivel de especie, nivel de mutación 
+y de cepa.
 
 \subsection*{LGAAP: Leishmaniinae Genome Assembly and Annotation Pipeline}
-Este artículo describe un proceso computacional para el ensamblaje y anotación de genomas de un tamaño aproximado de ~35 mb. El autor, menciona qué parámetros utilizan, en qué orden fueron ejecutados las herramientas y qué datos fueron analizados.  De esta manera, se utilizaron 6 genomas de la subfamilia del parásito Leishmaniinae, que presentaba lecturas cortas, y largas. Además se describe cuales son los archivos de salida, que son el ensamblaje a escala de cromosomas, las proteínas y transcripciones en formato FASTA, dos archivos GFF, uno con las características y otro con las coordenadas.
+Este artículo describe un proceso computacional para el ensamblaje y anotación de 
+genomas de un tamaño aproximado de ~35 mb. El autor, menciona qué parámetros utilizan, 
+en qué orden fueron ejecutados las herramientas y qué datos fueron analizados.  
+De esta manera, se utilizaron 6 genomas de la subfamilia del parásito Leishmaniinae, 
+que presentaba lecturas cortas, y largas. Además se describe cuales son los archivos
+de salida, que son el ensamblaje a escala de cromosomas, las proteínas y transcripciones 
+en formato FASTA, dos archivos GFF, uno con las características y otro con las coordenadas.
 
 \subsection*{A Pipeline for Non-model Organisms for de novo Transcriptome Assembly, Annotation, and Gene Ontology Analysis Using Open Tools: Case Study with Scots Pine }
-Esta publicación describe el flujo bioinformático utilizado para el ensamblaje del transcriptoma, la anotación y el análisis de ontología genética del pino silvestre Pinus Sylvestris. El procedimiento descrito muestra un requisito básico de conocimientos en bioinformática  y línea de comandos linux. De esta manera, el autor realiza un análisis que describe y clasifica los genes y productos génicos de acuerdo a su función molecular, implicación en los procesos biológicos y localización celular.
-
+Esta publicación describe el flujo bioinformático utilizado para el ensamblaje del 
+transcriptoma, la anotación y el análisis de ontología genética del pino silvestre 
+\emph{Pinus Sylvestris}. El procedimiento descrito muestra un requisito básico de 
+conocimientos en bioinformática  y línea de comandos linux. De esta manera, el autor 
+realiza un análisis que describe y clasifica los genes y productos génicos de acuerdo a 
+su función molecular, implicación en los procesos biológicos y localización celular.
 
 \newpage
 \section{Materiales y métodos}
 
+En este capítulo se presenta  el enfoque metodológico de esta 
+investigación. Se establece el conjunto de herramientas y 
+las diferentes etapas que permitirán el avance de este trabajo.
+
+\begin{figure}[ht!]
+    \centering
+    \small
+    \includegraphics[scale=0.35]{Metodología.png}
+    \caption{Etapas de la metodología (\emph{elaboración propia}).}
+    \label{fig:distribucion}
+\end{figure}
+
+\subsection*{Búsqueda bibliográfica}
+
+La primera etapa del capítulo asociado a los materiales 
+y métodos, corresponde a la búsqueda bibliográfica. Esta  
+investigación documental persigue conseguir respuestas a 
+partir de diferentes publicaciones, artículos  e información 
+existente en distintas  bases de datos, en particular  
+desde Pubmed. Todo este trabajo se realiza utilizando distintos
+filtros de búsqueda,  términos y descriptores para obtener 
+información con mayor exactitud.
+
+Para enfocar y delimitarla en razón del trabajo de tesis, se 
+procede al planteamiento  de algunas preguntas claves tales como:
+
+\begin{itemize}
+    \item ¿Cuáles son los flujos de trabajo bioinformáticos?.
+    \item ¿Qué herramientas y pipelines se recomiendan?.
+    \item ¿Qué publicaciones describen pipelines?.
+    \item ¿Cuáles son las mejores prácticas para diseñar y ejecutar?
+    \item ¿Cómo se integran las herramientas?.
+\end{itemize}
+
+Las preguntas, además de guiar la búsqueda, permiten definir 
+la estrategia siguiente, en cuanto a la forma y  selección de 
+terminología.
+
+\subsection*{Identificación de métodos de análisis}
+
+La búsqueda bibliográfica, asociada a distintas experiencias 
+de flujos de trabajo vinculados con la genómica, nos conducirá 
+a establecer diferentes contextos en que se utilizan herramientas 
+bioinformáticas. La recopilación de estas herramientas, permitirá  
+caracterizarlas y definir en qué método de análisis serán utilizadas.
+Una vez asignadas las herramientas al método correspondiente, 
+se evaluará su complementariedad y funcionalidad con el resto 
+de las herramientas.
+
+\subsection*{Evaluación y selección de métodos de análisis}
+
+La evaluación de las herramientas y su selección se realizará 
+en base a su adaptabilidad en el mismo sistema de ejecución y 
+a la complementariedad con el resto de las herramientas, es 
+decir, se considerarán las características comunes en sus 
+dependencias, además de  la facilidad de comunicación de sus 
+entradas y salidas.
+
+La selección  de herramientas se realizará en base a 
+criterios vinculados a la facilidad de instalación y la 
+documentación que facilite el uso y comprensión  de la 
+herramienta, además de ejemplos de uso básico.
+
+\subsection*{Diseño del Pipeline}
+
+El desarrollo de un pipeline bioinformático requiere 
+una planificación que permita garantizar su eficacia y
+reproducibilidad. En este contexto, se propone un 
+pipeline bioinformático modular y flexible que permita 
+analizar, procesar y extraer información relevante a partir 
+de diversas entradas de datos genómicos de bacterias. Las 
+características claves de este pipeline incluyen:
+
+\begin{itemize}
+    \item \textbf{Definición de los objetivos de análisis}
+    \item \textbf{Resultados esperados}
+    \item \textbf{Recolección de Datos:}
+    \begin{itemize}
+        \item Tipo de datos
+        \item Formato de datos
+    \end{itemize}
+    \item \textbf{Funcionalidad y análisis:}
+    \begin{itemize}
+        \item Selección de Herramientas y Algoritmos
+        \item Flujo de trabajo para preprocesamiento
+        \item Flujo de trabajo para el ensamble o alineamiento
+        \item Flujo de trabajo de diferentes análisis de interés
+    \end{itemize}
+    \item \textbf{Validación y verificación:}
+    \begin{itemize}
+        \item Realizar test de confirmación
+        \item Reporte automatizado final
+    \end{itemize}
+    \item \textbf{Documentación y Reproducibilidad}
+\end{itemize}
+
+\begin{figure}[ht!]
+    \centering
+    \small
+    \includegraphics[scale=0.35]{diseñopipeline.png}
+    \caption{Diseño de las etapas del flujo de trabajo (\emph{elaboración propia}).}
+    \label{fig:disenopipeline}
+\end{figure}
+
+\subsection*{Implementación del pipeline}
+
+Para poder transicionar del diseño previo a la implementación, es 
+necesario el uso de gestores de flujo de trabajo como Nextflow, 
+para automatizar y gestionar el pipeline y poder realizar el 
+proceso de codificación. Por otra parte, para garantizar la 
+reproducibilidad es necesario definir el entorno de ejecución 
+del flujo de trabajo, junto a todas las herramientas y sus 
+dependencias.
+
+\subsection*{Documentación del pipeline}
+
+Para garantizar una comprensión de las diferentes funcionalidades 
+del flujo de trabajo es necesaria una explicación detallada, por 
+lo que documentar cada paso facilitará la utilización por parte 
+de diferentes usuarios, asimismo permitirá la verificación y 
+reproducibilidad de diferentes resultados.
+
+De esta manera, es necesario proporcionar instrucciones 
+claras de cómo utilizar el flujo de trabajo, como comandos 
+de ejecución, ejemplos de uso, e instalación, proporcionando, un 
+ambiente de colaboración, además permitirá  que los nuevos usuarios 
+tengan a su haber un manual de uso completo.
+
+El usar Git a través de Github, para la documentación ofrece 
+beneficios significativos para el proyecto, como un control de 
+versiones, mayor colaboración y accesibilidad.
+
+\subsection*{Definición de la estructura y diseño del reporte}
+
+Una particularidad del flujo de trabajo como se mencionó durante 
+el diseño, es poder generar un informe automatizado, que permita 
+capturar de manera resumida, todos los procesos que se realizaron 
+durante la ejecución del flujo. Este, además, debe entregar  al 
+usuario la posibilidad de definir si las herramientas funcionaron 
+correctamente.
+
+Para definir la estructura del reporte, se debe en primer lugar, 
+recopilar los diferentes tipos de reportes existentes, 
+(los que ya vienen incorporados en las herramientas). Ahora, 
+si esta no presenta una manera de generar un resumen, se deberán 
+encontrar las  herramientas  adecuadas que lo permitan.
+
+De esta manera, el reporte final tendrá la capacidad de ser 
+dinámico, en donde se adaptará a las diferentes funciones de 
+selección del usuario. Este presentará una portada  y un resumen 
+de todos los procesos ejecutados en el flujo de trabajo.
+
+\subsection*{Implementación de los reportes en el pipeline}
+
+Una particularidad de Nextflow, es la capacidad que tiene para 
+distribuir cada proceso en diferentes carpetas de trabajo, 
+permitiendo una mayor claridad y manejo de los archivos de salida. 
+De esta manera, implementar una manera de generar reportes 
+automatizados, presenta un desafío. Aun así, la implementación 
+se hará a través de Nextflow, utilizando un proceso final en el 
+lenguaje de R markdown.
+
+\subsection*{Documentación de los reportes}
+
+La documentación de los reportes, que es una característica propia del flujo de 
+trabajo, se hará al igual que la documentación del pipeline, en la 
+plataforma de github.
+
+\subsection*{Empaquetamiento del pipeline}
+
+Para garantizar la reproducibilidad del flujo de trabajo, el código será alojado en un repositorio en github, además se deberá establecer un archivo de configuración de docker para garantizar diferentes aspectos:
+
+\begin{itemize}
+    \item Reproducibilidad: Se podrá garantizar que el entorno de ejecución sea el mismo. 
+    
+    \item Portabilidad: Facilita el despliegue del flujo.
+    
+    \item Automatización: Permite automatizar el proceso de construcción.
+\end{itemize}
+
+
 \newpage
 \section{Resultados}
 
+\subsection*{Búsqueda bibliográfica}
+\subsubsection*{Palabras claves}
+\subsubsection*{Cadena y filtros de búsqueda}
+\subsubsection*{Selección de base de datos}
+\subsubsection*{Estrategia de extracción}
+\subsubsection*{Selección de artículos}
+
+
 \newpage
 \section{Discusión}
-La búsqueda bibliográfica permitió identificar diferentes herramientas que permiten una correcta ejecución del flujo de trabajo del grupo seleccionado para la identificación de genes de resistencia antibiótica, se tuvo dificultades para instalar y ejecutar la gran mayoría de las opciones. La documentación, reflejaba una instalación basada en contenedor, lo que dificulta la instalación del ejecutable en nuestro propio ambiente de ejecución. Es por lo anterior, que se prefirió la utilización de un software que utiliza las bases de datos para la comparación como Resfinder o de NCBI para generar la identificación y anotación de los genes. 
+La búsqueda bibliográfica permitió identificar diferentes herramientas que permiten
+ una correcta ejecución del flujo de trabajo del grupo seleccionado para la 
+ identificación de genes de resistencia antibiótica, se tuvo dificultades para 
+ instalar y ejecutar la gran mayoría de las opciones. La documentación, reflejaba 
+ una instalación basada en contenedor, lo que dificulta la instalación del ejecutable 
+ en nuestro propio ambiente de ejecución. Es por lo anterior, que se prefirió la utilización 
+ de un software que utiliza las bases de datos para la comparación como Resfinder 
+ o de NCBI para generar la identificación y anotación de los genes. 
 
-El diseño del flujo de trabajo, no presenta la posibilidad de seleccionar la herramienta a usar para los análisis, si no que por el contrario, existen herramientas predefinidas, detrás de la activación de la funcionalidad del usuario. Aquí, nace la posibilidad  de evaluar si en futuras versiones, darle la cualidad al usuario de seleccionar la herramienta a usar por análisis mejoraría la usabilidad y rendimiento del flujo de trabajo. 
+El diseño del flujo de trabajo, no presenta la posibilidad de seleccionar la 
+herramienta a usar para los análisis, si no que por el contrario, existen 
+herramientas predefinidas, detrás de la activación de la funcionalidad del usuario. 
+Aquí, nace la posibilidad  de evaluar si en futuras versiones, darle la 
+cualidad al usuario de seleccionar la herramienta a usar por análisis mejoraría 
+la usabilidad y rendimiento del flujo de trabajo. 
 
-El diseño actual, presente en este trabajo brinda la posibilidad de ejecutar diferentes análisis, con el único objetivo de mejorar la automatización de diversas herramientas bioinformáticas, sin duda, el servicio de este flujo de trabajo puede ser un instrumento potencialmente favorable para su utilización en investigaciones. De lo anterior, nace la problemática de seguir mejorando la automatización, optimizando el código, encontrando nuevas funcionalidad que vayan escalando junto al lenguaje de Nextflow.
+El diseño actual, presente en este trabajo brinda la posibilidad de 
+ejecutar diferentes análisis, con el único objetivo de mejorar la automatización de 
+diversas herramientas bioinformáticas, sin duda, el servicio de este flujo de trabajo 
+puede ser un instrumento potencialmente favorable para su utilización en 
+investigaciones. De lo anterior, nace la problemática de seguir mejorando la 
+automatización, optimizando el código, encontrando nuevas funcionalidad que vayan 
+escalando junto al lenguaje de Nextflow.
 
-Dentro del flujo de trabajo se optó por agregar diferentes funcionalidades que le ofrezcan al usuario una mejor “calidad de vida” y una mayor automatización, como la descarga de genomas de referencia, la utilización de SRA Toolkit para la descarga de las muestras en formato .fastq, la posibilidad de descomprimir directamente los archivos desde el flujo de trabajo o como también la descarga de las bases de datos para el análisis taxonómico. Sin duda, ninguna de estas funcionalidades intenta aumentar el tamaño de la imágen de docker, o disminuir el rendimiento, se tendrá que evaluar la usabilidad de cada una de estas características.
+Dentro del flujo de trabajo se optó por agregar diferentes funcionalidades que le 
+ofrezcan al usuario una mejor “calidad de vida” y una mayor automatización, como la 
+descarga de genomas de referencia, la utilización de SRA Toolkit para la descarga de 
+las muestras en formato .fastq, la posibilidad de descomprimir directamente los 
+archivos desde el flujo de trabajo o como también la descarga de las bases de datos 
+para el análisis taxonómico. Sin duda, ninguna de estas funcionalidades intenta 
+aumentar el tamaño de la imágen de docker, o disminuir el rendimiento, se tendrá que 
+evaluar la usabilidad de cada una de estas características.
 
-Una de las funcionalidades más importantes, es la implementación de un reporte final automatizado, que brinda la posibilidad al usuario de obtener la información de los procesos ejecutados de manera resumida. Sin duda, la implementación marcó un desafío, ya que, el lenguaje base del flujo de trabajo está escrito en Nextflow. Este lenguaje no brinda la funcionalidad de ejecutar otro proceso terminado el flujo de trabajo principal, que serían todos los procesos seleccionados por el usuario. De esta manera, se tuvo que generar un canal para generar una dependencia y que reciba los resultados de cada proceso ejecutado y así detectar el momento en que los procesos del “flujo principal” terminen. Esta manera de detectar cuándo ejecutar el proceso que realiza el informe, sin duda, marca una lentitud en el rendimiento general y puede ser mejorada con alguna actualización de Nextflow futura.
+Una de las funcionalidades más importantes, es la implementación de un reporte 
+final automatizado, que brinda la posibilidad al usuario de obtener la información 
+de los procesos ejecutados de manera resumida. Sin duda, la implementación marcó un 
+desafío, ya que, el lenguaje base del flujo de trabajo está escrito en Nextflow. Este 
+lenguaje no brinda la funcionalidad de ejecutar otro proceso terminado el flujo de 
+trabajo principal, que serían todos los procesos seleccionados por el usuario. De esta 
+manera, se tuvo que generar un canal para generar una dependencia y que reciba los 
+resultados de cada proceso ejecutado y así detectar el momento en que los procesos del 
+“flujo principal” terminen. Esta manera de detectar cuándo ejecutar el proceso que 
+realiza el informe, sin duda, marca una lentitud en el rendimiento general y puede 
+ser mejorada con alguna actualización de Nextflow futura.
 
 	
-La ejecución de los casos de estudios, se realizaron bajo un ambiente de bajo rendimiento, en un computador con 7 GB de RAM lo cual limitó nuestra capacidad de procesamiento de datos. Las restricciones de memoria afectaron significativamente la capacidad para ejecutar herramientas bioinformáticas intensivas en recursos como Kraken 2 y Spades de manera eficiente. Para manejar estas limitaciones, utilizamos varias estrategias. Ocupamos versiones más ligeras de las bases de datos y ejecutamos los análisis en fragmentos más pequeños de datos en lugar de analizar muestras completas de una vez. Lo cual, se puede observar, en la base de datos utilizada en el proceso de identificación taxonómica donde se utilizó la colección de muestras virales de un tamaño de 0.5 GB . Otro ejemplo claro, es la utilización de las primeras 500 lecturas de escherichia coli y no el genoma de la muestra completo. Además, se implementaron técnicas de optimización de memoria, como la liberación de caché y el uso de datos comprimidos que permitieron completar los análisis, pero también presentaron desafíos, como tiempos de ejecución prolongados y la necesidad de realizar múltiples repeticiones para verificar los resultados. Es por esto, que para futuros usos, se recomienda el uso de sistemas con mayor capacidad de memoria acelerando los tiempos de análisis,y brindando la opción de usar datos de entrada más grandes. Es decir, las limitaciones de hardware presentaron desafíos significativos, y que si no es por las estrategias o adaptaciones, no se hubieran llevado a cabo. Sin embargo, mejorar los recursos computacionales es esencial para optimizar futuros estudios en análisis bioinformáticos y genómica bacteriana.
+La ejecución de los casos de estudios, se realizaron bajo un ambiente de bajo 
+rendimiento, en un computador con 7 GB de RAM lo cual limitó nuestra capacidad 
+de procesamiento de datos. Las restricciones de memoria afectaron significativamente 
+la capacidad para ejecutar herramientas bioinformáticas intensivas en recursos como 
+Kraken 2 y Spades de manera eficiente. Para manejar estas limitaciones, utilizamos 
+varias estrategias. Ocupamos versiones más ligeras de las bases de datos y ejecutamos 
+los análisis en fragmentos más pequeños de datos en lugar de analizar muestras 
+completas de una vez. Lo cual, se puede observar, en la base de datos utilizada en 
+el proceso de identificación taxonómica donde se utilizó la colección de muestras 
+virales de un tamaño de 0.5 GB . Otro ejemplo claro, es la utilización de las primeras 
+500 lecturas de escherichia coli y no el genoma de la muestra completo. Además, 
+se implementaron técnicas de optimización de memoria, como la liberación de caché y el 
+uso de datos comprimidos que permitieron completar los análisis, pero también presentaron 
+desafíos, como tiempos de ejecución prolongados y la necesidad de realizar múltiples 
+repeticiones para verificar los resultados. Es por esto, que para futuros usos, 
+se recomienda el uso de sistemas con mayor capacidad de memoria acelerando los tiempos 
+de análisis,y brindando la opción de usar datos de entrada más grandes. Es decir, las 
+limitaciones de hardware presentaron desafíos significativos, y que si no es por las 
+estrategias o adaptaciones, no se hubieran llevado a cabo. Sin embargo, mejorar los 
+recursos computacionales es esencial para optimizar futuros estudios en análisis 
+bioinformáticos y genómica bacteriana.
 
-La documentación del flujo de trabajo en Github, está estructurada de forma que tiene secciones bien definidas que guían al usuario desde la instalación inicial, la configuración hasta la ejecución completa del pipeline. Cada sección incluye una descripción que ayuda a los usuarios a comprender no sólo el cómo funcionan si no que también el por qué detrás de cada etapa. Sin embargo, es claro mencionar que algunas secciones podrían mejorar su claridad con ejemplos más elaborados, y explicaciones adicionales.
+La documentación del flujo de trabajo en Github, está estructurada de forma 
+que tiene secciones bien definidas que guían al usuario desde la instalación 
+inicial, la configuración hasta la ejecución completa del pipeline. Cada 
+sección incluye una descripción que ayuda a los usuarios a comprender no sólo 
+el cómo funcionan si no que también el por qué detrás de cada etapa. Sin embargo, 
+es claro mencionar que algunas secciones podrían mejorar su claridad con ejemplos 
+más elaborados, y explicaciones adicionales.
 	
-Es importante que la documentación se mantenga actualizada con cualquier cambio del flujo de trabajo, o del repositorio. Así mismo, al usar Github, existe la posibilidad de abrir issues y discusiones en el repositorio lo que permite que los usuarios puedan colaborar tanto en la mejora de la documentación como en el flujo.
+Es importante que la documentación se mantenga actualizada con cualquier cambio 
+del flujo de trabajo, o del repositorio. Así mismo, al usar Github, existe la 
+posibilidad de abrir issues y discusiones en el repositorio lo que permite que 
+los usuarios puedan colaborar tanto en la mejora de la documentación como en el flujo.
 
-El empaquetamiento del flujo de trabajo, permite poder garantizar la reproducibilidad sin importar el ambiente de ejecución del usuario, sin embargo, es necesario seguir mejorando y optimizando la imagen final a utilizar. En el caso de que en el trabajo futuro se agreguen más herramientas y dependencias, se hace imprescindible la necesidad de tener una imagen base más liviana. El flujo de trabajo actual, utiliza la última versión de ubuntu hasta la fecha, esto permite tener más facilidad al tener una gama de dependencias base más amplia pero con la consecuencia de un mayor peso neto en la descarga. 
-
+El empaquetamiento del flujo de trabajo, permite poder garantizar la 
+reproducibilidad sin importar el ambiente de ejecución del usuario, sin embargo, 
+es necesario seguir mejorando y optimizando la imagen final a utilizar. En el caso 
+de que en el trabajo futuro se agreguen más herramientas y dependencias, se hace 
+imprescindible la necesidad de tener una imagen base más liviana. El flujo de trabajo 
+actual, utiliza la última versión de ubuntu hasta la fecha, esto permite tener más 
+facilidad al tener una gama de dependencias base más amplia pero con la consecuencia 
+de un mayor peso neto en la descarga. 
 
 
 \newpage
@@ -449,12 +757,6 @@ La documentación detallada, que abarca desde la instalación hasta ejemplos de 
 
 
 \newpage
-El cálculo de la composición relativa de TEs de cada gen será obtenido de la siguiente forma:
-\begin{equation}
-    \frac{N_{TE}}{N_{Total}} = F_{TE}
-    \label{eq:freqRelativa}
-\end{equation}
-Donde $N_{TE}$ es la cantidad de observaciones de una familia o superfamilia de TEs particular y $N_{Total}$ es la cantidad total de TEs observados en cada gen y $F_{TE}$ es la frecuencia relativa de una familia o superfamilia respecto al total de TEs observados. Con esto obtuvimos los vectores T20R, N75R y T6R, donde la R al final denota que es un vector de frecuencia relativa.
 
 \begin{figure}[ht!]
     \centering
@@ -488,13 +790,7 @@ Donde $N_{TE}$ es la cantidad de observaciones de una familia o superfamilia de 
 \section{Anexos}
 \subsection{Anexo 1: Cálculo de vectores de composición}
 
-\begin{figure}[ht!]
-    \centering
-    \small
-    \includegraphics[scale=0.35]{barplot.png}
-    \caption{Comparación entre las proporciones del número de TEs anotados en zonas intrónicas (color cyan) vs. zonas intergénicas (color salmón). Cada barra representa un organismo modelo. De izquierda a derecha: \emph{Drosophila melanogaster} (mosca de la fruta); \emph{Danio rerio} (Pez zebra); \emph{Homo sapiens} (humano) y, \emph{Mus musculus} (ratón).}
-    \label{fig:distribucion}
-\end{figure}
+
 
 Para ilustrar mejor cómo se crean estos vectores tomemos en consideración el siguiente ejemplo.
 Un determinado gen contiene los siguientes TEs en sus intrones (ejemplo real de un archivo de conteos):
