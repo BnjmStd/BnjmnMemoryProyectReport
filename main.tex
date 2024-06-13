@@ -18,6 +18,8 @@
 \usepackage{makecell} % lo mismo
 
 %
+\usepackage{forest}
+\usepackage{longtable}
 \usepackage{listings} % Paquete para código
 \usepackage{tabularx} % Para tablas con ajuste automático de ancho
 \usepackage{hyperref} % Para los enlaces
@@ -1370,7 +1372,286 @@ correspondiente en formato FASTA. Finalmente, era necesario
 identificar todos los ORFs \emph{(Open Reading Frames)} en la secuencia 
 obtenida de NCBI Nucleotide, usando la herramienta ORF finder. 
 De esta manera, el flujo tendría todo lo necesario para 
-ejecutar el análisis con el comando, tal como señala el List.20:
+ejecutar el análisis con el comando, tal como señala 
+el List.\ref{lst:ANNOTATIONCaso1}:
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la anotación funcional de \textit{Escherichia coli} \emph{(elaboración propia)}., label=lst:ANNOTATIONCaso1]
+        nextflow run script.nf --f ORF.fa \
+        --annotation \
+        --annotationDb database.fa \
+        --annotationType prot
+    \end{lstlisting}
+\end{center}
+
+Los resultados de la anotación funcional de los ORFs, que se encuentran en la 
+tabla de anexos, arrojan que de los siete ORFs en la secuencia 
+de ADN de \emph{E. coli}, 
+ninguno de los ORFs mostró coincidencias significativas en 
+la base de datos utilizada. 
+Lo anterior, puede deberse a varias razones, entre ellas, que 
+la base de datos 
+BLAST utilizada, podría no presentar secuencias correspondientes 
+o bien, los ORFs 
+podrían ser regiones no codificantes o no estar anotadas previamente. 
+Sin embargo, 
+aunque no se obtuvieron los resultados esperados, si se puede tener el 
+alcance de la 
+funcionalidad del flujo de trabajo.
+
+\subsubsection*{Análisis de Variantes Genéticas en Escherichia coli Mediante 
+el Genoma de Referencia ASM584v2}
+
+Para el siguiente caso de estudio y para validar la implementación de la 
+llamada de variantes se descargará el genoma de referencia \emph{ASM584v2} de 
+\textit{Escherichia coli} para identificar variantes genéticas. A continuación se mostrará 
+el comando ejecutado:
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para realizar un llama de variantes en \textit{Escherichia coli} \emph{(elaboración propia)}., label=lst:VARIANTCaso1]
+        nextflow run script.nf --path misc/mocks/ \
+        --trimmo pe \
+        --threads 3 \
+        --leading 3 \
+        --trailing 3 \
+        --minlen 3 \
+        --spades \
+        --variantCall \
+        --variantRef GCA_000005845.2_ASM584v2_genomic.fna 
+    \end{lstlisting}
+\end{center}
+
+Considerando que el \emph{variant calling} es 
+crucial para entender las diferencias genéticas y 
+su impacto funcional. Este proceso es la base de
+muchos estudios genómicos y tiene aplicaciones 
+directas en medicina, de esta manera, se detectaron 
+90 SNPs en la muestra analizada, también el ratio 
+de transiciones a transversiones \emph{(ts/tv)} 
+fue de 2.10, 
+que es un indicador de la calidad del llamado de 
+variantes. 
+
+La implementación del flujo de trabajo, y con 
+ello de las herramientas que llevan a cabo los 
+diferentes análisis, fue generado en un ambiente 
+controlado, que posteriormente, tendrá que empaquetarse 
+para garantizar su reproducibilidad, junto además, 
+a la generación de una documentación.
+
+\subsection{Diseño y estructura de los reportes}
+
+\subsection{Implementación de los reportes}
+
+La implementación de los reportes, planteó un desafío ya que Nextflow 
+no maneja eventos posteriores al  flujo de trabajo principal haya terminado. 
+Por otro lado, Nextflow tiene su propia manera de manejar los archivos de 
+salida de cada proceso, almacenando los archivos de salida con un 
+identificador dinámico difícil de manejar.
+
+De esta manera, era necesario generar una forma de determinar el 
+momento exacto que los archivos de salida asíncronos de los procesos 
+ejecutados por el usuario haya terminado para finalmente utilizarlos para 
+generar un reporte.
+
+La estrategia utilizada para determinar, qué procesos fueron 
+seleccionados por el usuario, y de esta forma el reporte tenga 
+una estructura dinámica fue generar una dependencia a un canal de 
+cola, una funcionalidad propia de Nextflow. Esto permite, que el 
+código intérprete que debe esperar que el canal reciba un valor para 
+continuar con el proceso del informe.
+
+Así, si los parámetros trimmo y spades están presentes, se evaluarán 
+diferentes combinaciones de los parámetros taxonomy, arg, annotation y 
+variantCall para determinar qué acciones tomar y qué resultados visualizar.
+La siguiente tabla detalla las combinaciones posibles y las acciones 
+correspondientes. 
+
+\begin{longtable}{|c|c|c|c|p{6cm}|}
+    \caption{Estrategía utilizada para la implementación de los reportes con sus respectivas acciones (elaboración propia).}
+    \label{tabla:acciones} \\
+    \hline
+    \textbf{Taxonomy} & \textbf{ARG} & \textbf{Annotation} & \textbf{VariantCall} & \textbf{Acción} \\
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Taxonomy} & \textbf{ARG} & \textbf{Annotation} & \textbf{VariantCall} & \textbf{Acción} \\
+    \hline
+    \endhead
+    
+    \hline \multicolumn{5}{r}{\textit{Continúa en la siguiente página}} \\
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    False & False & False & False & Visualizar solo el resultado de Spades \\
+    \hline
+    False & False & False & True & Visualizar el resultado de Variant Calling \\
+    \hline
+    False & False & True & False & Visualizar el resultado de Annotation \\
+    \hline
+    False & False & True & True & Visualizar los resultados de Annotation y Variant Calling \\
+    \hline
+    False & True & False & False & Visualizar el resultado de ARG \\
+    \hline
+    False & True & False & True & Visualizar los resultados de ARG y Variant Calling \\
+    \hline
+    False & True & True & False & Visualizar los resultados de ARG y Annotation \\
+    \hline
+    False & True & True & True & Visualizar los resultados de ARG, Annotation, y Variant Calling \\
+    \hline
+    True & False & False & False & Visualizar el resultado de Taxonomy \\
+    \hline
+    True & False & False & True & Visualizar los resultados de Taxonomy y Variant Calling \\
+    \hline
+    True & False & True & False & Visualizar los resultados de Taxonomy y Annotation \\
+    \hline
+    True & False & True & True & Visualizar los resultados de Taxonomy, Annotation, y Variant Calling \\
+    \hline
+    True & True & False & False & Visualizar los resultados de Taxonomy y ARG \\
+    \hline
+    True & True & False & True & Visualizar los resultados de Taxonomy, ARG, y Variant Calling \\
+    \hline
+    True & True & True & False & Visualizar los resultados de Taxonomy, ARG y Annotation \\
+    \hline
+    True & True & True & True & Visualizar todos los resultados \\
+    \hline
+\end{longtable}
+
+Destacar, que esta fue la estrategia para el flujo de 
+trabajo con ensamble o alineamiento, o para un análisis 
+rápido de bacterias.
+
+\subsection{Documentación del flujo de trabajo}
+
+El flujo de trabajo está alojado dentro de un repositorio de 
+GitHub, 
+este sigue una estructura sencilla de organización que 
+se puede ver en la figura a continuación.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{forest}
+        for tree={
+            font=\ttfamily,  % Fuente de tipo de letra tipo teletipo
+            grow=east,       % Crece hacia la derecha
+            align=left,      % Alineación a la izquierda
+            anchor=west,     % Ancla en el oeste (izquierda)
+            child anchor=west, % Ancla los hijos al oeste
+            edge path={
+                \noexpand\path [draw, \forestoption{edge}]
+                (!u.south east) -- ++(5pt,0) |- (.child anchor)\forestoption{edge label};
+            },
+            l sep=15pt, % Espaciado vertical entre nodos
+            s sep=10pt, % Espaciado horizontal entre nodos
+            parent anchor=east % Ancla los padres al este (derecha)
+        }
+        [repositorio de trabajo % Nodo raíz
+            [config % Carpeta config
+                [Dockerfile]
+            ]
+            [.gitignore]  % Archivos en el directorio raíz
+            [misc]  % Carpeta misc
+            [src % Carpeta src
+                [process]  % Subcarpetas dentro de src
+                [workflows]
+                [services]
+            ]
+            [README.md]
+            [docker-compose.yml]
+            [nextflow.config]
+            [script.nf]
+        ]
+    \end{forest}
+    \caption{Estructura del repositorio de trabajo.}
+    \label{fig:repositorio}
+\end{figure}
+
+Es una estructura sencilla en donde en el directorio 
+config, se contienen todos los archivos de configuración 
+específicos, en este caso el Dockerfile. En el caso 
+del directorio misc, es un directorio misceláneo que 
+solo se utiliza para archivos que puedan ser necesarios, 
+como las muestras utilizadas en los casos de estudio. El 
+directorio principal que contiene el código fuente 
+del proyecto es el nombrado src, este presenta otros 
+tres directorios que son process, que contiene las 
+definiciones de todos los procesos utilizados en el flujo, 
+el directorio workflow que define todos los subflujos de 
+trabajo del pipeline, y finalmente services, que son todas 
+las utilidades y validaciones necesarias para el correcto 
+funcionamiento del flujo. Además de la carpeta principal src, 
+se tienen archivos en la raíz del proyecto como el gitignore, 
+que especifica los archivos o directorios ignorados por el 
+git, el archivo README que describe la documentación del 
+proyecto,  el archivo docker-compose.yml que es el archivo 
+de configuración del servicio de docker, el nextflow.config, 
+que es el archivo de configuración de Nextflow, contiene 
+parámetros y ajustes de memoria, y finalmente el script.nf 
+que es el archivo que define el flujo de trabajo.
+
+La documentación del flujo de trabajo, se llevó a cabo en el 
+archivo README, y  presenta un encabezado con el título 
+del proyecto y varias insignias que indican la versión, 
+estado de construcción, cobertura de código y licencia. 
+La Introducción explica el propósito del pipeline 
+desarrollado en NextFlow para el análisis de bacterias, 
+destacando su accesibilidad y automatización. La sección 
+de Instalación y Configuración proporciona instrucciones 
+para clonar el repositorio, instalar Docker Desktop y 
+generar la imagen Docker necesaria. Las Instrucciones de 
+Uso detallan los pasos para comenzar a usar el pipeline, 
+incluyendo la configuración de directorios y parámetros 
+específicos. La sección de Preprocesamiento describe el 
+uso de herramientas como FastQC y Trimmomatic para procesar 
+las lecturas de secuenciación antes del análisis. 
+En Ensamble, se explica cómo ensamblar genomas 
+bacterianos utilizando SPAdes, incluyendo opciones 
+para preprocesamiento y ensamblaje conjunto. La sección 
+de Análisis incluye sub-secciones sobre la 
+identificación taxonómica usando Kraken 2, la 
+identificación de genes de resistencia a antibióticos 
+usando AMRFinder, el llamado de variantes genéticas, y 
+la anotación funcional de secuencias ensambladas. 
+Un Ejemplo de Uso proporciona un ejemplo de ejecución 
+del pipeline que combina varios análisis a partir de 
+un directorio con datos de trabajo. La sección de 
+Reporte informa sobre la generación de un informe 
+resumen en formato PDF con los resultados del pipeline, 
+destacando la disponibilidad de output detallado en la 
+carpeta work. Configuración Avanzada ofrece instrucciones 
+para configurar directorios de trabajo y otros parámetros 
+en el archivo nextflow.config. La sección sobre Detalles 
+sobre las versiones específicas de las herramientas 
+utilizadas lista todas las dependencias y requisitos de 
+software utilizados en el proyecto. Solución de Problemas 
+proporciona consejos para resolver problemas comunes en 
+los procesos de ensamblaje, anotación y taxonomía. 
+Finalmente, la sección de Licencia informa sobre la 
+licencia MIT bajo la cual se distribuye el proyecto. 
+
+\subsection{Empaquetamiento del flujo de trabajo}
+
+Para el empaquetamiento del flujo de trabajo, se 
+utilizó la herramienta de docker, que permite la 
+automatización del despliegue de aplicaciones dentro de  
+contenedores. En nuestro caso, se seleccionó una imagen 
+base de Ubuntu para construir el contenedor. Esta se 
+seleccionó, ya que es una opción estándar debido a su 
+estabilidad y amplia compatibilidad con diversas herramientas, 
+bibliotecas y dependencias, es decir, garantizamos un 
+entorno reproducible y portátil.
+
+Para integrar Docker con Nextflow y escalar el 
+flujo de trabajo, se configuró un servicio en el 
+directorio de configuración del repositorio. Aquí se 
+define cómo se construye el contenedor y cómo se montan 
+los volúmenes para asegurar que los archivos de trabajo 
+estén disponibles dentro del contenedor. Esta se puede ver 
+en la figura siguiente.
+
 
 
 \newpage
