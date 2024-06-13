@@ -16,6 +16,13 @@
 \usepackage{rotating} % Imágenes de lado
 \usepackage{array} % Para las tablas
 \usepackage{makecell} % lo mismo
+
+%
+\usepackage{listings} % Paquete para código
+\usepackage{tabularx} % Para tablas con ajuste automático de ancho
+\usepackage{hyperref} % Para los enlaces
+%
+
 \usepackage{parskip} % Paquete para manejar espaciado entre párrafos
 \setlength{\parindent}{15pt} % Sangría al inicio de párrafos
 \usepackage[font=small,labelfont=bf]{caption} % Hacer que los caption (texto debajo de imagenes o cosas, sea mas chico)
@@ -369,7 +376,21 @@ su distribución [17].
 
 \newpage
 \section{Plantamiento del Problema}
-El rápido avance  de la secuenciación de genomas bacterianos, ha llevado a una acumulación masiva de datos genómicos que requieren análisis profundos que permitan comprender la diversidad, evolución y funcionalidad de estos microorganismos. Sin embargo, el acceso a herramientas de análisis adecuadas y la interpretación de los resultados siguen siendo un desafío para muchos científicos del área, especialmente en lo que respecta a la reproducibilidad y escalabilidad de los flujos de trabajo bioinformáticos. Se hace imprescindible entonces, disponer de un flujo predefinido, que permita automatizar el proceso, haciendo que cada etapa del trabajo sea visible, facilitando de esta manera, el control sobre el avance de la tarea. sin necesidad de un aumento de los recursos,  disminuyendo la posibilidad de errores y  propiciando una evolución constante que permita mayor y mejor accesibilidad a otros investigadores.
+El rápido avance  de la secuenciación de genomas bacterianos, ha 
+llevado a una acumulación masiva de datos genómicos que requieren 
+análisis profundos que permitan comprender la diversidad, evolución 
+y funcionalidad de estos microorganismos. Sin embargo, el acceso a 
+herramientas de análisis adecuadas y la interpretación de los 
+resultados siguen siendo un desafío para muchos científicos del 
+área, especialmente en lo que respecta a la reproducibilidad y 
+escalabilidad de los flujos de trabajo bioinformáticos. Se hace 
+imprescindible entonces, disponer de un flujo predefinido, que 
+permita automatizar el proceso, haciendo que cada etapa del trabajo 
+sea visible, facilitando de esta manera, el control sobre el 
+avance de la tarea. sin necesidad de un aumento de los recursos, 
+disminuyendo la posibilidad de errores y  propiciando una evolución 
+constante que permita mayor y mejor accesibilidad a otros 
+investigadores.
 
 \newpage
 \section{Objetivos}
@@ -643,13 +664,713 @@ Para garantizar la reproducibilidad del flujo de trabajo, el código será aloja
 
 \newpage
 \section{Resultados}
+Este capítulo pretende entregar resultados, con respecto a 
+la etapas que fueron desarrolladas para conseguir el diseño 
+final del pipeline de análisis de bacterias.
 
-\subsection*{Búsqueda bibliográfica}
+\subsection{Búsqueda bibliográfica}
 \subsubsection*{Palabras claves}
+
+Las palabras que serán integradas en la cadena de búsqueda 
+tienen relación directa con el desarrollo y automatización del 
+pipeline de análisis de bacterias,  la  elección de la 
+terminología adecuada, permitirá obtener información relevante y 
+mejorará la selección de las principales herramientas que 
+actualmente son utilizadas en flujos de trabajo. Así destacamos:
+
+\begin{itemize}
+    \item Análisis genómico
+    \item Metagenómica
+    \item Análisis bioinformático
+    \item Flujos de trabajo bioinformático
+    \item Identificación de genes de resistencia antibiótica
+    \item Taxonomía bacteriana
+\end{itemize}
+
 \subsubsection*{Cadena y filtros de búsqueda}
+
+La cadena y filtros de búsqueda, se realizó utilizando 
+las palabras claves mencionadas, además de  un filtro 
+temporal, que se establece desde el año 2020 hasta la
+actualidad. De esta manera, se obtuvieron las siguientes 
+cadenas de búsqueda:
+
+\begin{verbatim}
+    ("2020/01/01"[Date - Publication] : "3000"[Date - Publication]) 
+    AND ("Genomic analysis"[Other Term])
+
+    ("2020/01/01"[Date - Publication] : "3000"[Date - Publication]) 
+    AND ("Metagenomics"[Other Term])
+
+    ("2020/01/01"[Date - Publication] : "3000"[Date - Publication]) 
+    AND ("Bioinformatics analysis"[Other Term])
+
+    ("2020/01/01"[Date - Publication] : "3000"[Date - Publication]) 
+    AND ("Bioinformatics workflows"[Other Term])
+
+    ("2020/01/01"[Date - Publication] : "3000"[Date - Publication]) 
+    AND ("Identification of antibiotic resistance genes"[Other Term])
+
+    ("2020/01/01"[Date - Publication] : "3000"[Date - Publication]) 
+    AND ("Bacterial taxonomy"[Other Term]).
+\end{verbatim}
+
 \subsubsection*{Selección de base de datos}
+
+La selección de los artículos se obtuvo de la siguiente 
+base de datos relacionada a las Ciencias de la Salud en general.
+Esta correspondió a:
+
+\begin{itemize}
+    \item Pubmed
+\end{itemize}
+
 \subsubsection*{Estrategia de extracción}
+
+La estrategia de selección y exclusión de los artículos, se 
+realizó en base a la incorporación de  criterios de temporalidad, 
+contenido y contexto asociados a este trabajo. De esta forma, 
+podemos nombrar:
+
+\begin{itemize}
+    \item Artículos de menos de 3 años de antigüedad.
+    \item Artículos que han sido referenciados al menos 1 vez.
+    \item Artículos que expliquen el flujo de trabajo utilizado.
+    \item Artículos que describen las diferentes herramientas utilizadas.
+    \item Artículos que utilizan bacterias para sus análisis.
+\end{itemize}
+
 \subsubsection*{Selección de artículos}
+En este capítulo se realiza una síntesis de los artículos 
+encontrados con carácter de relevantes,  incluidos finalmente 
+y después de los filtros ya mencionados, en la revisión 
+sistemátizada. En la siguiente tabla se mostrarán los resultados 
+obtenidos de la base de datos:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados obtenidos en la revisión sistematizada \emph{(elaboración propia)}.}
+    \label{tabla:resultados}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}X|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+        \hline
+        \textbf{Nombre} & \textbf{Año} & \textbf{Terminología Asociada} & \textbf{Citas} \\
+        \hline
+        Metagenomic and network analysis revealed wide distribution of antibiotic resistance genes in monkey gut microbiota
+        & 2021 & Metagenomic \newline Identificación de genes de resistencia antibiótica \newline Taxonomía bacteriana & ~ \\
+        \hline
+        Overview of bioinformatic methods for analysis of antibiotic resistome from genome and metagenome data
+        & 2021 & Metagenomic \newline Identificación de genes de resistencia antibiótica \newline Taxonomía bacteriana \newline Análisis bioinformático \newline Flujos de trabajo bioinformático & ~15 \\
+        \hline
+        LGAAP: Leishmaniinae Genome Assembly and Annotation Pipeline
+        & 2021 & Análisis bioinformático \newline Flujos de trabajo bioinformático & ~any \\
+        \hline
+        A Pipeline for Non-model Organisms for de novo Transcriptome Assembly, Annotation, and Gene Ontology Analysis Using Open Tools: Case Study with Scots Pine
+        & 2021 & Análisis genómico \newline Metagenómica \newline Análisis bioinformático \newline Flujos de trabajo bioinformático & ~ \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Identificación de los métodos de análisis}
+
+La identificación y recopilación de los métodos de análisis, 
+en base a la búsqueda bibliográfica nos permitió agrupar las 
+herramientas utilizadas en cada contexto de análisis. Es así como, 
+se muestran los siguientes resultados:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados obtenidos en la identificación de métodos de análisis para el pre-procesamiento \emph{(elaboración propia)}.}
+    \label{tabla:preprocesamiento}
+    \begin{tabularx}{\textwidth}{|p{3cm}|X|X|}
+        \hline
+        \textbf{Herramienta} & \textbf{Sitio web} & \textbf{Aplicado a} \\
+        \hline
+        Fastp & \href{https://github.com/OpenGene/fastp}{\url{https://github.com/OpenGene/fastp}} & Preprocesamiento de lecturas breves y control de calidad de datos WGS o WMS. \\
+        \hline
+        FastQC & \href{https://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{\url{https://www.bioinformatics.babraham.ac.uk/projects/fastqc/}} & Evaluar la calidad de los datos de secuenciación de ADN en formato FASTQ \\
+        \hline
+        FastQ Screen & \href{https://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/}{\url{https://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/}} & Filtrado y control de calidad en archivos FASTQ. Detección de la presencia de secuencias no deseadas o contaminantes en los datos de secuenciación \\
+        \hline
+        Trimmomatic & \href{https://www.scayle.es/manual/es/hpc/software-instalado/trimmomatic}{\url{https://www.scayle.es/manual/es/hpc/software-instalado/trimmomatic}} & Eliminación y filtrado de lecturas \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados obtenidos en la identificación de métodos de análisis para el proceso de ensamble o alineamiento \emph{(elaboración propia)}.}
+    \label{tabla:ensamble_alineamiento}
+    \begin{tabularx}{\textwidth}{|p{3cm}|X|X|}
+        \hline
+        \textbf{Herramienta} & \textbf{Sitio web} & \textbf{Aplicado a} \\
+        \hline
+        SPAdes/
+        MetaSPAdes & \href{https://cab.spbu.ru/software/spades/}{\url{https://cab.spbu.ru/software/spades/}} & Montaje de lectura corta WGS. \\
+        \hline
+        Flye/metaFlye & \href{https://github.com/fenderglass/Flye}{\url{https://github.com/fenderglass/Flye}} & Montaje de lectura larga WGS, WMS. \\
+        \hline
+        Megahit & \href{https://github.com/voutcn/megahit}{\url{https://github.com/voutcn/megahit}} & Ensamblaje de lectura corta WMS. \\
+        \hline
+        PLASS & \href{https://github.com/soedinglab/plass}{\url{https://github.com/soedinglab/plass}} & Ensamblaje WMS a nivel de proteína. \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\newpage
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados obtenidos en la identificación de métodos de análisis para el control de calidad \emph{(elaboración propia)}.}
+    \label{tabla:control_calidad}
+    \begin{tabularx}{\textwidth}{|p{3cm}|X|X|}
+        \hline
+        \textbf{Herramienta} & \textbf{Sitio web} & \textbf{Aplicado a} \\
+        \hline
+        Bowtie2 & \href{https://bowtie-bio.sourceforge.net/bowtie2/index.shtml}{\url{https://bowtie-bio.sourceforge.net/bowtie2/index.shtml}} & Alineamiento de secuencias de lectura corta frente a un genoma de referencia. \\
+        \hline
+        SAMTools & \href{https://www.htslib.org/}{\url{https://www.htslib.org/}} & Procesamiento y manipulación de archivos SAM/BAM. \\
+        \hline
+        BUSCO & \href{https://busco.ezlab.org/}{\url{https://busco.ezlab.org/}} & Evaluación de la integridad y completitud de los montajes. \\
+        \hline
+        BLAST+ & \href{https://blast.ncbi.nlm.nih.gov/Blast.cgi}{\url{https://blast.ncbi.nlm.nih.gov/Blast.cgi}} & Comparación de secuencias y búsqueda de similitudes entre secuencias. \\
+        \hline
+        DETONATE & \href{https://hpc.nih.gov/apps/DETONATE.html}{\url{https://hpc.nih.gov/apps/DETONATE.html}} & Evaluación y estimación de la calidad de ensamblajes transcriptómicos a través de un score. \\
+        \hline
+        GenomeTools & \href{https://genometools.org/}{\url{https://genometools.org/}} & Análisis y manipulación de datos de secuenciación genómica. \\
+        \hline
+        GAAS & \href{https://github.com/NBISweden/GAAS}{\url{https://github.com/NBISweden/GAAS}} & Control de calidad. \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\newpage 
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados obtenidos en la identificación de métodos de análisis para la identificación taxonómica \emph{(elaboración propia)}.}
+    \label{tabla:identificacion_taxonomica}
+    \begin{tabularx}{\textwidth}{|p{3cm}|X|X|}
+        \hline
+        \textbf{Herramienta} & \textbf{Sitio web} & \textbf{Aplicado a} \\
+        \hline
+        GTDB/GTDB-Tk & \href{https://gtdb.ecogenomic.org/}{\url{https://gtdb.ecogenomic.org/}} & Base de datos para taxonomía genómica \\
+        \hline
+        EzBioCloud & \href{https://www.ezbiocloud.net/}{\url{https://www.ezbiocloud.net/}} & Genomas y genes de ARNr 16S seleccionados por taxonomía \\
+        \hline
+        Kraken2 & \href{https://ccb.jhu.edu/software/kraken2}{\url{https://ccb.jhu.edu/software/kraken2}} & Sistema de clasificación taxonómica \\
+        \hline
+        DIAMOND & \href{https://github.com/bbuchfink/diamond}{\url{https://github.com/bbuchfink/diamond}} & Clasificador taxonómico \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados obtenidos en la identificación de métodos de análisis para la identificación de genes de resistencia antibiótica \emph{(elaboración propia)}.}
+    \label{tabla:resistencia_antibiotica}
+    \begin{tabularx}{\textwidth}{|p{3cm}|X|X|}
+        \hline
+        \textbf{Herramienta} & \textbf{Sitio web} & \textbf{Aplicado a} \\
+        \hline
+        CARD/RGI & \href{https://card.mcmaster.ca/}{\url{https://card.mcmaster.ca/}} & Base de datos de ARG \\
+        \hline
+        AMRFinder & \href{https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/}{\url{https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/}} & Base de datos ARG por NCBI \\
+        \hline
+        ResFinder & \href{https://github.com/cadms/resfinder}{\url{https://github.com/cadms/resfinder}} & Herramientas para la identificación de ARG adquiridos y mutaciones puntuales basadas en las bases de datos por CGE \\
+        \hline
+        ARG-OAP/SARG & \href{http://smile.hku.hk/SARGs}{\url{http://smile.hku.hk/SARGs}} & El perfil directo de ARG del metagenoma \\
+        \hline
+        DeepARG & \href{https://github.com/gaarangoa/deeparg2.0}{\url{https://github.com/gaarangoa/deeparg2.0}} & Perfil directo del ARG \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\newpage
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados obtenidos en la identificación de métodos de análisis para la anotación funcional \emph{(elaboración propia)}.}
+    \label{tabla:anotacion_funcional}
+    \begin{tabularx}{\textwidth}{|p{3cm}|X|X|}
+        \hline
+        \textbf{Herramienta} & \textbf{Sitio web} & \textbf{Aplicado a} \\
+        \hline
+        Maker2 & \href{https://www.yandell-lab.org/software/maker.html}{\url{https://www.yandell-lab.org/software/maker.html}} & Anotación basada en evidencia \\
+        \hline
+        AUGUSTUS & \href{https://bioinf.uni-greifswald.de/augustus/}{\url{https://bioinf.uni-greifswald.de/augustus/}} & Anotación ab initio \\
+        \hline
+        BlastX & \href{https://blast.ncbi.nlm.nih.gov/Blast.cgi?}{\url{https://blast.ncbi.nlm.nih.gov/Blast.cgi?}} & Asignación de anotaciones \\
+        \hline
+        GenomeTools & \href{https://genometools.org/}{\url{https://genometools.org/}} & Control de calidad de la anotación \\
+        \hline
+        GAAS & \href{https://github.com/NBISweden/GAAS}{\url{https://github.com/NBISweden/GAAS}} & Control de calidad de la anotación \\
+        \hline
+        AGAT & \href{https://github.com/NBISweden/AGAT}{\url{https://github.com/NBISweden/AGAT}} & Anotación de estadísticas de calidad \\
+        \hline
+        HMMER & \href{http://hmmer.org/}{\url{http://hmmer.org/}} & Búsqueda y alineamiento de perfiles HMM \\
+        \hline
+        InterProScan & \href{https://www.ebi.ac.uk/interpro/search/sequence/}{\url{https://www.ebi.ac.uk/interpro/search/sequence/}} & Búsqueda de dominios y familias de proteínas en secuencias \\
+        \hline
+        SignalP & \href{https://services.healthtech.dtu.dk/services/SignalP-5.0/}{\url{https://services.healthtech.dtu.dk/services/SignalP-5.0/}} & Predicción de péptidos señal en secuencias de proteínas \\
+        \hline
+        Transdecoder & \href{https://bio.tools/TransDecoder}{\url{https://bio.tools/TransDecoder}} & ORF prediction, Identificación de ORFs y predicción de genes a partir de transcritos \\
+        \hline
+        BEDTools & \href{https://bedtools.readthedocs.io/en/latest/}{\url{https://bedtools.readthedocs.io/en/latest/}} & Enmascaramiento de contaminantes \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\subsection{Evaluación y selección de los métodos de análisis}
+
+La evaluación y  selección  de métodos de análisis, se realizó en 
+base a herramientas que cumplian con criterios relacionados, 
+por una parte, con la facilidad de instalación y por otra, con 
+la existencia de  documentación pertinente, para facilitar el uso 
+y comprensión  de esta herramienta y que incorporara además, 
+ejemplos de uso básico.A continuación, se muestran las herramientas 
+en el proceso o flujo de trabajo:
+
+\newpage
+
+\begin{figure}[ht!]
+    \centering
+    \small
+    \includegraphics[scale=0.35]{seleccionMetodosAnalisis.png}
+    \caption{Selección de herramientas y definición de los procesos del flujo de trabajo (\emph{elaboración propia}).} 
+    \label{fig:seleccionMetodosAnalisis}
+\end{figure}
+
+En la figura \ref{fig:seleccionMetodosAnalisis} se puede 
+observar cada etapa que será parte del flujo de trabajo. 
+A continuación se definen las características generales  y 
+utilidad  de cada una de ellas:
+
+\begin{itemize}
+    \item \textbf{Datos de entrada:} En esta etapa, el flujo de trabajo tendrá la capacidad de detectar y validar el formato entregado por el usuario. Es decir, si el usuario entrega un directorio que presente archivos variados como .csv .fasta .fq o bien .fq.gz, solo admitirá los que presenten .fasta .fq o .fq.gz.
+    \item \textbf{Pre-procesamiento:} Para la etapa de pre-procesamiento, el usuario puede ejecutar el programa que prefiera en los archivos de entrada previos.  De esta manera, podrá limpiar, recortar o filtrar las lecturas antes de un ensamble o alineamiento o por el contrario, visualizar la calidad de las lecturas.
+    \item \textbf{Ensamble o alineamiento:} Esta etapa permite  ensamblar o alinear las lecturas de entrada de usuario. Este podrá recibir las lecturas previamente pre-procesadas o bien, recibir las lecturas directamente de un archivo de entrada.
+    \item \textbf{Evaluación de calidad:} La evaluación de calidad, ofrecerá al usuario la posibilidad de tener en una carpeta de trabajo de Nextflow,  todos los archivos de salida que se obtuvieron al calcular la calidad del ensamble o alineamiento.
+    \item \textbf{Post-procesamiento:} La etapa de post-procesamiento, le otorga al usuario la opción de seleccionar, qué tipo de análisis quiere llevar a cabo en la cantidad disponible, Dentro de la tipología de análisis, el usuario puede considerar los siguientes:
+
+        \begin{itemize}
+            \item Análisis taxonómico
+            \item Detección de genes de resistencia antibiótica
+            \item Anotación funcional
+            \item Llamado de variantes
+        \end{itemize}
+    
+    \item \textbf{Reporte:} Finalmente, la característica del reporte, no es una opción que el usuario pueda desactivar o activar. Asimismo, este ofrecerá al usuario la información resumida de todos los procesos ejecutados dentro del flujo de trabajo, ya sea, pre-procesamiento, ensamble o alineamiento o cualquier análisis.
+\end{itemize}
+
+\subsection{Diseño e implementación del flujo de trabajo}
+
+\begin{figure}[ht!]
+    \centering
+    \small
+    \includegraphics[scale=0.35]{diseñoDelFlujoDeTrabajo.png}
+    \caption{Diseño del flujo de trabajo (\emph{elaboración propia}).} 
+    \label{fig:disenoDelFlujoDeTrabajo}
+\end{figure}
+
+Como se puede observar en la Fig.\ref{fig:disenoDelFlujoDeTrabajo} el flujo de trabajo 
+consta de subflujos que determinan cómo los datos de entrada 
+hacen variar la cantidad de procesos que se ejecutan.
+
+El primer proceso que se puede observar es el proceso 
+integral de análisis genómico de bacterias, en donde a partir 
+del parámetro de entrada o dato de entrada, variará el flujo de 
+trabajo.
+
+La descarga inicia descrita en la Fig.\ref{fig:disenoDelFlujoDeTrabajo}, 
+en el caso de que el usuario presente un directorio vacío 
+acompañado de un código SRR \emph{(Sequence Read Archive Run)}, 
+\emph{(que es un identificador único que se asigna a un conjunto 
+específico de lecturas)}, podrá descargar desde NCBI las 
+muestras. Al usuario, se le brinda la posibilidad de utilizar 
+varios parámetros, es aquí, donde se encuentra \texttt{--path} que 
+determina el directorio vacío, y en donde las lecturas
+descargadas serán almacenadas. En el caso de \texttt{--id\_sra},
+hace referencia al identificador de la lectura, que acompañado 
+con el \texttt{--x} determinará la cantidad de lecturas a descargar. Si 
+las lecturas presentan una librería Layout: PAIRED, se hace 
+imprescindible la utilización de \texttt{--paires}.
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Sub-flujo de trabajo para la descarga inicial de lecturas \emph{(elaboración propia)}., label=lst:descargaInicial]
+        nextflow run script.nf --path [directorio] \
+            --id_sra [SRRXXXXXX] --x [lectura] --paires
+    \end{lstlisting}
+\end{center}
+
+El flujo integral de análisis genómico de bacterias 
+descrito en la Fig.\ref{fig:disenoDelFlujoDeTrabajo} permite 
+que el usuario, al presentar un directorio que no esté vacío,  
+almacene en un canal de trabajo 
+de Nextflow, particularmente aquellos archivos que presenten la 
+extensión de .fq, .fasta o .fq.gz o .fasta.gz. Cabe mencionar que, 
+cualquier archivo que esté comprimido será descomprimido. El primer 
+paso que puede activar el usuario, es la etapa de preprocesamiento, 
+aquí el usuario puede utilizar herramientas como Fastqc o Trimmomatic. 
+En el caso de utilizar Fastqc en todos los archivos dentro del 
+directorio de entrada, la salida será una carpeta comprimida. La 
+utilización de este programa limita las acciones que puede realizar 
+el usuario, ya que no tiene una entrada válida para otro programa, 
+tal como se puede observar en el List.\ref{lst:preprocesamientoFastqc}
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para el preprocesamiento de las lecturas con Fastqc \emph{(elaboración propia)}., label=lst:preprocesamientoFastqc]
+        nextflow run script.nf --path [directorio] \
+            --fastqc
+    \end{lstlisting}
+\end{center}
+
+Es importante remarcar que, una de las  herramienta que 
+se complementa muy bien con las demás, es Trimmomatic. 
+Esta herramienta, situándose dentro del grupo de trabajo, 
+se le pueden utilizar las principales características del 
+programa como tal, y como consecuencia, el archivo de salida 
+será  apto para poder ensamblarse o alinearse, de acuerdo a  
+como lo prefiera el usuario.
+
+\newpage
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando de ejecución de etapa de pre procesamiento \emph{(elaboración propia)}., label=lst:preprocesamientoTrimmomatic]
+        nextflow run script.nf --path [directorio de entrada]  \
+            --trimmo [se o pe] \
+            --threads [num de hilos] \
+            --leading [valor de calidad para el recorte inicial] \
+            --trailing [valor de calidad para el recorte final] \
+            --slidingwindow [tamano de ventana: calidad min] \
+            --minlen [longitud min. de lectura]
+    \end{lstlisting}
+\end{center}
+
+En el List.\ref{lst:preprocesamientoTrimmomatic} se presentan 
+los diferentes parámetros admitidos dentro del flujo de trabajo 
+para una utilización de Trimmomatic, estos variarán de acuerdo a 
+los requerimientos de cada usuario y de sus datos. La salida de 
+este proceso es admitida para un ensamble o alineamiento.
+
+La entrada para el proceso de ensamble o alineamiento, puede 
+venir de un proceso previo, como fue descrito anteriormente, o bien, 
+puede ser, a través de un archivo directo, entregado por el 
+usuario \emph{(como se explica en la Fig.
+\ref{fig:disenoDelFlujoDeTrabajo} en el análisis 
+rápido de bacterias)}. De esta manera, la salida de este 
+proceso permitirá la utilización de los diferentes análisis 
+disponibles. 
+
+De acuerdo a lo anterior, los análisis disponibles, 
+vendrán  a complementar el proceso de ensamble y alineamiento, 
+para así contar con  una mayor claridad con respecto a las muestras. 
+Estos análisis, corresponden al análisis de detección de genes 
+de resistencia antibiótica, análisis taxonómico, una anotación 
+funcional y finalmente un llamado de variantes. Todos los análisis 
+pueden ser usados, a través de la salida del ensamble o 
+alineamiento, o bien a través de la entrada directa de una 
+muestra (ver la Fig.\ref{fig:disenoDelFlujoDeTrabajo} en 
+el análisis rápido de bacterias). 
+
+El primer análisis que se puede describir, en razón de su 
+utilización dentro del flujo de trabajo, corresponde al 
+análisis de detección de genes de resistencia antibiótica. 
+Este análisis, permite identificar y caracterizar genes de 
+resistencia a antibióticos en secuencias genómicas. Su 
+utilización, a través del flujo de trabajo se puede observar 
+en la List.\ref{lst:argFast} y  List.\ref{lst:ARG}, 
+con un análisis rápido o un análisis 
+integral genómico de bacterias respectivamente. 
+
+\newpage
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para ejecutar un análisis rápido de identificación de genes de resistencia antibiótica \emph{(elaboración propia)}., label=lst:argFast]
+        nextflow run script.nf --f [archivo de muestras]  \
+            --arg [activar ARG] \
+            --dbarg [base de datos de anotacion]
+    \end{lstlisting}
+\end{center}
+
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la ejecución de un análisis de ARG \emph{(elaboración propia)}., label=lst:ARG]
+        nextflow run script.nf --path [directorio de entrada]  \
+            --trimmo [se o pe] \
+            --threads [num de hilos] \
+            --leading [valor de calidad para el recorte inicial] \
+            --trailing [valor de calidad para el recorte final] \
+            --slidingwindow [tamano de ventana: calidad min] \
+            --minlen [longitud min. de lectura] \
+            --arg [activar ARG] \
+            --dbarg [base de datos de anotacion]
+    \end{lstlisting}
+\end{center}
+
+En el List.\ref{lst:ARG} se puede observar cómo se implementan los 
+procesos de preprocesamiento y ensamble, junto al análisis 
+de detección de genes de resistencia antibiótica. En esta 
+etapa, sólo se necesita para activar el proceso, la bandera 
+\texttt{--arg} y para seleccionar la base de datos para la anotación 
+\texttt{--dbarg}. Cabe destacar, que esto no impide que otros análisis 
+sean activados por el usuario.
+
+En el caso del análisis taxonómico, se refiere a la 
+identificación de los organismos presentes en una muestra, 
+a partir de sus secuencias de ADN o ARN. 
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para ejecutar un análisis rápido de identificación taxonómica \emph{(elaboración propia)}., label=lst:taxonomyFast]
+        nextflow run script.nf --f [archivo de muestras]  \
+            --taxonomy [activar opc] \
+            --db [ruta a la base de datos]
+    \end{lstlisting}
+\end{center}
+
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la ejecución de un análisis de identificación taxonómica \emph{(elaboración propia)}., label=lst:TAXONOMY]
+        nextflow run script.nf --path [directorio de entrada]  \
+            --trimmo [se o pe] \
+            --threads [num de hilos] \
+            --leading [valor de calidad para el recorte inicial] \
+            --trailing [valor de calidad para el recorte final] \
+            --slidingwindow [tamano de ventana: calidad min] \
+            --minlen [longitud min. de lectura] \
+            --taxonomy [activar opc] \
+            --db [ruta a la base de datos]
+    \end{lstlisting}
+\end{center}
+
+En el List.\ref{lst:taxonomyFast} y List.\ref{lst:TAXONOMY} se puede 
+observar, cómo utilizar este análisis, a través del flujo de 
+trabajo, en un análisis rápido o en un análisis más completo. 
+El usuario para activar la opción debe utilizar \texttt{--taxonomy}, y 
+además ingresar con \texttt{--db} la ruta a la base de datos que desee  
+utilizar.
+
+Un llamado de variantes, es poder identificar diferencias genéticas, 
+como SNPs, pequeñas inserciones o deleciones \emph{(indels)}, comparando 
+las secuencias de una muestra con una referencia. En este caso, el 
+usuario podrá utilizar como muestra el resultado del ensamble o 
+alineamiento (ver List.\ref{lst:VARIANTES}) o bien, puede optar por  ingresar un 
+archivo .fasta para la comparación. Sin embargo, con eso no basta, 
+el debe ingresar un genoma de referencia, a través del parámetro 
+\texttt{--variantRef}. Si por alguna razón, no presenta un genoma de 
+referencia pero sí presenta un identificador NC de NCBI, lo 
+podrá realizar, a través del parámetro \texttt{--variantRefId}.
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para ejecutar un análisis rápido de llamado de variantes \emph{(elaboración propia)}., label=lst:variantesFast]
+        nextflow run script.nf --f [archivo de muestras]  \
+            --variantCall [activar opc] \
+            --variantRef [ruta del genoma de referencia]
+    \end{lstlisting}
+\end{center}
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la ejecución de un análisis de llamado de variantes \emph{(elaboración propia)}., label=lst:VARIANTES]
+        nextflow run script.nf --path [directorio de entrada]  \
+            --trimmo [se o pe] \
+            --threads [num de hilos] \
+            --leading [valor de calidad para el recorte inicial] \
+            --trailing [valor de calidad para el recorte final] \
+            --slidingwindow [tamano de ventana: calidad min] \
+            --minlen [longitud min. de lectura] \
+            --variantCall [activar opc] \
+            --variantRef [ruta del genoma de referencia]
+    \end{lstlisting}
+\end{center}
+
+El último análisis disponible, dentro del flujo de trabajo, 
+corresponde a  la anotación funcional, que se refiere al 
+proceso de asignar, anotar funciones biológicas a las secuencias, 
+como genes o variantes. En este mismo contexto, el usuario podrá 
+activar esta opción con el parámetro \texttt{--annotation} y entregando la
+ruta al archivo para generar la base de datos con \texttt{--ref annotation}.
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para ejecutar un análisis rápido de anotación funcional \emph{(elaboración propia)}., label=lst:annotationFast]
+        nextflow run script.nf --f [archivo de muestras]  \
+            --annotation [activar opc] \
+            --refannotation [archivo para crear base de datos]
+    \end{lstlisting}
+\end{center}
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la ejecución de una anotación funcional \emph{(elaboración propia)}., label=lst:ANNOTATION]
+        nextflow run script.nf --path [directorio de entrada]  \
+            --trimmo [se o pe] \
+            --threads [num de hilos] \
+            --leading [valor de calidad para el recorte inicial] \
+            --trailing [valor de calidad para el recorte final] \
+            --slidingwindow [tamano de ventana: calidad min] \
+            --minlen [longitud min. de lectura] \
+            --annotation [activar opc] \
+            --refannotation [archivo para crear base de datos]
+    \end{lstlisting}
+\end{center}
+
+Por último, se debe indicar que cada proceso ejecutado durante el flujo de trabajo, 
+tiene su propio ambiente, que corresponde a una carpeta o directorio dentro de una 
+asignada por Nextflow. En este caso, nos referimos a la carpeta works, aquí se podrán 
+encontrar todas las salidas de las herramientas utilizadas y los links o rutas 
+simbólicas a los archivos de entrada.
+
+\subsection{Casos de estudio}
+
+En este capítulo, se presentarán diferentes casos de estudio para representar una 
+ejecución del flujo de trabajo en un ambiente investigativo. Esto se realizará por 
+cada análisis por separado, de modo de verificar y controlar los resultados.
+
+\subsubsection*{Caracterización de Genes de Resistencia Antibiótica y Clasificación 
+Taxonómica en Escherichia coli}
+
+El primer caso corresponde a la evaluación de la 
+\textit{Escherichia coli} \emph{(E. coli)}, comúnmente encontrada en el 
+intestino del humano y otros animales. La mayoría de las cepas de 
+E. coli son inofensivas, sin embargo, algunas cepas pueden causar 
+infecciones graves, como diarrea, o enfermedades respiratorias. 
+En este contexto, la evaluación o detección de genes de resistencia 
+antibiótica es crucial, debido a su capacidad de adquirir o transferir 
+resistencia, representando un desafío significativo para la salud 
+pública.
+
+En primer lugar, una vez realizada la búsqueda en NCBI SRA, para 
+identificar un SRR de \textit{Escherichia coli} \emph{(E. coli)} 
+válido, se usará la descarga inicial del flujo de trabajo, 
+como se muestra en el List.\ref{lst:descargaCaso1}.
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la descarga inicial de las muestras de \textit{Escherichia coli} \emph{(elaboración propia)}., label=lst:descargaCaso1]
+        nextflow run script.nf --path [directorio]  \
+            --id_sra SRR291523311 \
+            --x 500 \
+            --pairs
+    \end{lstlisting}
+\end{center}
+
+En el List.\ref{lst:descargaCaso1}, se puede apreciar la utilización de parámetros 
+como es el caso de \texttt{--path}, que puede ser cualquier directorio 
+vacío, \texttt{--id\_sra} que 
+se le entrega el código SRR de NCBI,  en donde, las muestras presentan una librería PAIRED, 
+por lo que se hace imprescindible la utilización de \texttt{--pairs} y la cantidad de 
+lecturas a 
+descargar, que en este caso solo serán las primeras 500. Una vez obtenidas las lecturas a 
+utilizar de  \textit{Escherichia coli} \emph{(E. coli)}, se utilizara el 
+flujo de trabajo que lleva 
+por nombre, \emph{“proceso integral de análisis de bacterias”} para poder realizar un 
+preprocesamiento, un ensamble y un análisis de detección de genes de resistencia 
+antibiótica. De esta manera, los parámetros utilizados se pueden observar en la figura 
+que a continuación se presenta:
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la identificación de ARG de \textit{Escherichia coli} \emph{(elaboración propia)}., label=lst:ARGCaso1]
+        nextflow run script.nf --path misc/mocks \
+            --trimmo pe \
+            --threads 3 \
+            --leading 3 \
+            --trailing 3 \
+            --minlen 36 \
+            --spades \ 
+            --arg \
+            --typedb plasmidfinder
+    \end{lstlisting}
+\end{center}
+
+Para la realización de este análisis, el preprocesamiento de las lecturas se 
+ejecutó en base a un filtrado, en donde el valor de calidad para recorte 
+inicial \emph{(leading)} tiene un valor de 3, el valor de calidad para el recorte 
+final \emph{(trailing)} será de 3 y  la longitud mínima de lectura \emph{(minlen)}
+tendrá un valor de  36. De esta manera, el ensamble de novo se debería 
+realizar de manera exitosa, permitiendo la utilización de la base de datos 
+plasmidfinder para detectar genes de resistencia antibiótica.
+
+Los resultados de la detección de genes de resistencia antibiótica 
+identificaron la presencia del gen Col(BS512)\_1 en la secuencia, con
+una cobertura del 87.98\% y una identidad del 99.51\%. Este gen, 
+está registrado en la base de datos plasmidfinder bajo el acceso NC\_010656.
+
+A modo de, sintetizar la etapa de casos de uso, y brindar un mayor 
+entendimiento del cómo funcionan los análisis dentro del flujo de 
+trabajo, el  análisis taxonómico se realizará en base a la misma 
+muestra de \textit{Escherichia coli} \emph{(E. coli)}. De esta manera, si se entrega 
+directamente una muestra de \textit{Escherichia coli} a Kraken 2, el software 
+intentará clasificar de acuerdo a su base de datos taxonómica predefinida 
+para identificar el organismo al que pertenece. En este caso, al tratarse 
+de \textit{Escherichia coli}, Kraken 2 debería clasificar correctamente la secuencia 
+como perteneciente a esa especie bacteriana. 
+
+De esta manera, se realizó un análisis taxonómico de una muestra de 
+\textit{Escherichia coli} utilizando la herramienta kraken 2. El objetivo es 
+identificar la composición taxonómica de la muestra y determinar si 
+presenta elementos virales.
+
+Para la ejecución del flujo de trabajo, se debe descargar la 
+base de datos de kraken 2 para determinar la presencia de elementos 
+virales, utilizando el parámetro \texttt{--dbdownload} y el nombre de la base 
+de datos que es \emph{Viral}. De esta manera, se puede continuar con la 
+ejecución del flujo de trabajo, con los parámetros que se pueden ver 
+en el List.\ref{lst:TAXONOMYCaso1}:
+
+
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la identificación taxonómica de \textit{Escherichia coli} \emph{(elaboración propia)}., label=lst:TAXONOMYCaso1]
+        nextflow run script.nf --path misc/mocks \
+            --trimmo pe \
+            --threads 3 \
+            --leading 3 \
+            --trailing 3 \
+            --minlen 36 \
+            --spades \ 
+            --taxonomy \
+            --db [base de datos viral]
+    \end{lstlisting}
+\end{center}
+
+
+Entonces, se utilizó una base de datos viral de Kraken 2 que 
+incluye secuencias de diversos organismos, y la ejecución del 
+comando del List.\ref{lst:TAXONOMYCaso1}, los resultados 
+se pueden ver en anexos.
+
+Se detectaron secuencias no clasificadas, que pueden deberse a 
+secuencias de baja calidad, incompletas o que no tienen 
+coincidencias en la base de datos utilizada, que corresponden 
+al 94.87\% (37 secuencias). Al mismo tiempo, el  5.13\% de las 
+secuencias, fueron clasificadas como virus pertenecientes 
+al reino Duplodnaviria. Además, se detectó la presencia 
+de Escherichia phage 500465\-1 y Escherichia phage ev099, 
+qué son los fagos que infectan \textit{Escherichia coli}.
+
+Para concluir sobre este caso de estudio, el análisis 
+taxonómico realizado con el flujo de trabajo, permitió 
+identificar una pequeña muestra de secuencias virales que 
+infectan \textit{Escherichia coli}. Sin embargo, la alta 
+cantidad de secuencias 
+no clasificadas demuestra que hay una necesidad de mejorar 
+la calidad de las lecturas o bien, cambiar la base de datos.
+
+\subsubsection*{Análisis Funcional y Bioinformático de 
+Beta-Galactosidasa en \textit{Escherichia coli}}
+
+En cuanto al caso de estudio siguiente, lo que se realizará, 
+es un análisis funcional de Beta-Galactosidasa de 
+\textit{Escherichia coli}, utilizando el flujo de trabajo. 
+Cabe mencionar que la beta-galactosidasa, es una enzima 
+producida por la bacteria que cataliza la hidrólisis de la 
+lactosa en glucosa y galactosa.
+
+En primer término, se obtuvieron todas las secuencias de 
+beta-galactosidasa de \textit{Escherichia coli} desde 
+la base de datos 
+UniProt en formato FASTA, luego se buscó \emph{“Escherichia 
+coli beta-galactosidase”}, en la base de datos NCBI 
+Nucleotide y se descargó la secuencia de nucleótidos 
+correspondiente en formato FASTA. Finalmente, era necesario 
+identificar todos los ORFs \emph{(Open Reading Frames)} en la secuencia 
+obtenida de NCBI Nucleotide, usando la herramienta ORF finder. 
+De esta manera, el flujo tendría todo lo necesario para 
+ejecutar el análisis con el comando, tal como señala el List.20:
 
 
 \newpage
@@ -747,167 +1468,45 @@ de un mayor peso neto en la descarga.
 
 \newpage
 \section{Conclusión}
-Los flujos de trabajo automatizados, reducen el tiempo necesario para realizar análisis y permite al investigador enfocarse, concentrarse en la interpretación de los resultados. De esta manera, optimizando el uso de recursos computacionales y el capital humano. En investigaciones que requieren análisis rápidos, la utilización de flujos de trabajo permite obtener una visualización general del panorama a investigar. Sin embargo, es importante destacar la capacidad dinámica y versátil de las herramientas bioinformáticas, las cuales ofrecen una gran flexibilidad para adaptarse a diferentes necesidades y contextos de investigación. Ofreciendo una mayor capacidad, cuando se tiene un mayor conocimiento sobre la herramienta.
+Los flujos de trabajo automatizados, reducen el tiempo necesario 
+para realizar análisis y permite al investigador enfocarse, 
+concentrarse en la interpretación de los resultados. De esta manera, 
+optimizando el uso de recursos computacionales y el capital humano. 
+En investigaciones que requieren análisis rápidos, la utilización de 
+flujos de trabajo permite obtener una visualización general del 
+panorama a investigar. Sin embargo, es importante destacar la 
+capacidad dinámica y versátil de las herramientas bioinformáticas, 
+las cuales ofrecen una gran flexibilidad para adaptarse a diferentes 
+necesidades y contextos de investigación. Ofreciendo una mayor 
+capacidad, cuando se tiene un mayor conocimiento sobre la herramienta.
 
 
-El diseño del flujo de trabajo actual, permite poder escalar fácilmente para manejar un mayor conjunto de herramientas o para manejar grandes volúmenes de datos. Lo anterior, es especialmente importante en estudios de área de la genómica bacteriana, donde se pueden realizar múltiples muestras simultáneamente. Es decir, la capacidad de integrar diversas herramientas bioinformáticas dentro de un único flujo de trabajo permite un análisis más completo y detallado donde puede adaptarse y personalizarse para satisfacer necesidades específicas de diferentes contextos. 
+El diseño del flujo de trabajo actual, permite poder escalar 
+fácilmente para manejar un mayor conjunto de herramientas o para 
+manejar grandes volúmenes de datos. Lo anterior, es especialmente 
+importante en estudios de área de la genómica bacteriana, donde se 
+pueden realizar múltiples muestras simultáneamente. Es decir, la 
+capacidad de integrar diversas herramientas bioinformáticas dentro 
+de un único flujo de trabajo permite un análisis más completo y 
+detallado donde puede adaptarse y personalizarse para satisfacer 
+necesidades específicas de diferentes contextos. 
 
-
-La documentación detallada, que abarca desde la instalación hasta ejemplos de uso, facilita la utilización de flujos de trabajo por parte de investigadores con diferentes niveles de experiencia en bioinformática. Esto permite a la comunidad contribuir a la mejora continua de estos flujos de trabajo mediante la actualización de herramientas y la incorporación de nuevas metodologías a través de solicitudes de cambio en GitHub. De esta manera, se asegura que los flujos de trabajo se mantengan al día con los avances tecnológicos, así como la corrección de errores y la implementación de mejoras en la calidad de vida.
-
+La documentación detallada, que abarca desde la instalación 
+hasta ejemplos de uso, facilita la utilización de flujos de trabajo 
+por parte de investigadores con diferentes niveles de experiencia en 
+bioinformática. Esto permite a la comunidad contribuir a la mejora 
+continua de estos flujos de trabajo mediante la actualización de 
+herramientas y la incorporación de nuevas metodologías a través de 
+solicitudes de cambio en GitHub. De esta manera, se asegura que los 
+flujos de trabajo se mantengan al día con los avances tecnológicos, 
+así como la corrección de errores y la implementación de mejoras en 
+la calidad de vida.
 
 \newpage
 
-\begin{figure}[ht!]
-    \centering
-    \small
-    \vspace*{-10mm}
-    \includegraphics[scale=0.6]{T6N-M-In.png}
-    \caption{Comparación entre los promedios de distancias euclidianas promedio entre rutas metabólicas (o distancias internas promedio) usando como vector T6R. Las líneas verticales de color rojo y azul representan el promedio y la mediana, respectivamente. Los promedios y medianas se encuentran en su contexto de datos en forma de histograma (barras verticales) y la correspondiente curva de densidad de kernel estimada (o KDE, representada por la línea continua en azul, que aproximadamente contorna el histograma). a) (Arriba) Rutas metabólicas HKG (promedio = 0,1598; mediana = 0,0669; n = 10); b) (Abajo) Rutas metabólicas no-HKG (promedio = 0,3031; mediana = 0,3198; n = 235). El eje X está en la misma escala para comparación. El eje Y no está en la misma escala para mejor visualización.}
-    \label{T6R-M-In}
-\end{figure}
-
-\begin{table}[ht!]
-    \centering
-    \begin{tabular}{|c|c|c|c|} % Cantidad de celdas y como alinear el texto
-        \hline % Línea horizontal entre filas 
-        \textbf{Tipo de vector} & \textbf{HKG} & \textbf{No-HKG} & \textbf{Parcial-HKG} \\ \hline 
-        T6N & \makecell{\textbf{N}: 26 $\boldsymbol\mu$: 0,1154 \\ \textbf{M}: 0,1167 \textbf{\emph{s}}: 0,0800 } &
-        \makecell{\textbf{N}: 3.457 $\boldsymbol\mu$: 0,1373 \\ \textbf{M}: 0,1332 \textbf{\emph{s}}: 0,0744 } &
-        \makecell{\textbf{N}: 22.155 $\boldsymbol\mu$: 0,1447 \\ \textbf{M}: 0,1409 \textbf{\emph{s}}: 0,0782 } \\ \hline
-        T6R & \makecell{\textbf{N}: 26 $\boldsymbol\mu$: 0,2111 \\ \textbf{M}: 0,1848 \textbf{\emph{s}}: 0,1697 } &
-        \makecell{\textbf{N}: 3.457 $\boldsymbol\mu$: 0,3467 \\ \textbf{M}: 0,2962 \textbf{\emph{s}}: 0,2195 } &
-        \makecell{\textbf{N}: 22.155 $\boldsymbol\mu$: 0,3698 \\ \textbf{M}: 0,3178 \textbf{\emph{s}}: 0,2247 }\\ \hline
-        T6-OCC & \makecell{\textbf{N}: 26 $\boldsymbol\mu$: 0,2323 \\ \textbf{M}: 0,2166 \textbf{\emph{s}}: 0,1719 } &
-        \makecell{\textbf{N}: 3.457 $\boldsymbol\mu$: 0,4432 \\ \textbf{M}: 0,4067 \textbf{\emph{s}}: 0,2518 } &
-        \makecell{\textbf{N}: 22.155 $\boldsymbol\mu$: 0,4411 \\ \textbf{M}: 0,4069 \textbf{\emph{s}}: 0,2444 } \\ \hline
-
-    \end{tabular}
-    \caption{Resumen de distancias entre parejas de genes pertenecientes a una misma ruta (distancia interna). Las filas representan el tipo de vector que se esta usando en las rutas de cada columna . \textbf{N} es la cantidad comparaciones de parejas de genes. $\boldsymbol\mu$ es la media de distancias. \textbf{M} es la mediana de las distancias y \textbf{\emph{s}} es la desviación estándar.}
-    \label{res1}
-\end{table}
 \clearpage 
 \section{Anexos}
 \subsection{Anexo 1: Cálculo de vectores de composición}
-
-
-
-Para ilustrar mejor cómo se crean estos vectores tomemos en consideración el siguiente ejemplo.
-Un determinado gen contiene los siguientes TEs en sus intrones (ejemplo real de un archivo de conteos):
-\begin{verbatim}
-     34 Alu
-      2 CR1
-      2 ERVL
-      1 ERVL-MaLR
-      1 hAT-Blackjack
-      6 hAT-Charlie
-     19 L1
-      9 L2
-     18 MIR
-      3 RTE-X
-      1 TcMar-Tigger
-\end{verbatim}
-Al ser este convertido a un vector de conteo absoluto obtenemos los siguientes conteos: 
-\begin{equation*}
-    Vec_{T20} =
-    \begin{Bmatrix}
-        Alu\\
-        L1\\
-        MIR\\
-        L2\\
-        ERVL-MaLR\\
-        hAT-Charlie\\
-        ERV1\\
-        ERVL\\
-        TcMar-Tigger\\
-        CR1\\
-        hAT-Tip100\\
-        hAT-Blackjack\\
-        Gypsy\\
-        TcMar-Mariner\\
-        RTE-X\\
-        ERVK\\
-        RTE-BovB\\
-        hAT\\
-        TcMar-Tc2\\
-        Others\\
-    \end{Bmatrix}
-    =
-    \begin{Bmatrix}
-34\\
-19\\
-18\\
-9\\
-1\\
-6\\
-0\\
-2\\
-1\\
-2\\
-0\\
-1\\
-0\\
-0\\
-3\\
-0\\
-0\\
-0\\
-0\\
-0\\
-    \end{Bmatrix}
-\end{equation*}
-Dado que este gen tiene unbenaj total de 96 TEs, el vector de composición relativa se obtiene dividiendo cada una de las dimensiones del vector por este número total, obteniendo el siguiente vector: 
-
-\begin{equation*}
-    Vec_{T20R} =
-    \begin{Bmatrix}
-        Alu\\
-        L1\\
-        MIR\\
-        L2\\
-        ERVL-MaLR\\
-        hAT-Charlie\\
-        ERV1\\
-        ERVL\\
-        TcMar-Tigger\\
-        CR1\\
-        hAT-Tip100\\
-        hAT-Blackjack\\
-        Gypsy\\
-        TcMar-Mariner\\
-        RTE-X\\
-        ERVK\\
-        RTE-BovB\\
-        hAT\\
-        TcMar-Tc2\\
-        Others\\
-    \end{Bmatrix}
-    =
-    \begin{Bmatrix}
-	0.3541666666666667\\
-	0.19791666666666666\\
-	0.1875\\
-	0.09375\\
-	0.010416666666666666\\
-	0.0625\\
-	0.0\\
-	0.020833333333333332\\
-	0.010416666666666666\\
-	0.020833333333333332\\
-	0\\
-	0.010416666666666666\\
-	0.0\\
-	0.0\\
-	0.03125\\
-	0.0\\
-	0.0\\
-	0.0\\
-	0.0\\
-	0.0\\
-    \end{Bmatrix}
-\end{equation*}
-Podemos aplicar esta misma lógica para construir los vectores de ocupancia, solo debemos reemplazar los conteos por la ocupancia de una familia de TEs al interior del gen, y dividirlo por la suma total.
-A continuación se detalla la forma que tienen los 2 tipos de vectores restantes. Los vectores N75 tienen la siguiente forma:
 
 \clearpage
 \singlespacing % reduce el espacio entre citas
