@@ -1650,9 +1650,37 @@ directorio de configuración del repositorio. Aquí se
 define cómo se construye el contenedor y cómo se montan 
 los volúmenes para asegurar que los archivos de trabajo 
 estén disponibles dentro del contenedor. Esta se puede ver 
-en la figura siguiente.
+en la figura \ref{lst:servicesDocker} siguiente.
 
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Código para la elaboración del servicio de docker \emph{(elaboración propia)}., label=lst:servicesDocker]
+        services:
+            pipeline:
+                build:
+                    context:
+                    dockerfile: ./config/Dockerfile
+                volumes:
+                    - ${PWD}:/workspace
+    \end{lstlisting}
+\end{center}
 
+En el List.\ref{lst:servicesDocker} se puede apreciar 
+la configuración del archivo para generar el servicio, 
+en este se aprecia la palabra reservada context, que 
+vendría a ser el contexto de construcción, es decir, 
+se refiere al directorio desde el cual Docker copiará 
+los archivos a la imagen del contenedor. Al mismo tiempo, 
+se visualiza la palabra reservada Dockerfile, que es la 
+ruta al archivo Dockerfile que define cómo construir la 
+imagen. Volumes, o en español volúmenes, monta el directorio 
+de trabajo actual, dentro del contenedor, permitiendo tener 
+acceso a los archivos del proyecto.
+
+Dentro del archivo de configuración de docker, o 
+dockerfile, se encuentran todas las dependencias  y 
+herramientas vitales para la ejecución del flujo de 
+trabajo, a continuación se nombrarán las herramientas 
+instaladas dentro de la imagen.
 
 \newpage
 \section{Discusión}
