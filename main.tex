@@ -1680,7 +1680,138 @@ Dentro del archivo de configuración de docker, o
 dockerfile, se encuentran todas las dependencias  y 
 herramientas vitales para la ejecución del flujo de 
 trabajo, a continuación se nombrarán las herramientas 
-instaladas dentro de la imagen.
+instaladas dentro de la imagen de docker.
+
+
+\begin{longtable}{|c|p{6cm}|}
+    \caption{Información sobre las herramientas instaladas dentro de la imagen docker (elaboración propia).}
+    \label{tabla:asasd} \\
+    \hline
+    \textbf{Herramienta / dependencia} & \textbf{Descripción}  \\
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Herramienta / dependencia} & \textbf{Descripción} \\
+    \hline
+    \endhead
+    
+    \hline \multicolumn{2}{r}{\textit{Continúa en la siguiente página}} \\
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    Ubuntu & Sistema operativo base utilizado en el contenedor \\
+    \hline
+    openjdk-11-jre-headless & Entorno de ejecución de Java necesario para ejecutar aplicaciones Java sin interfaz gráfica. \\
+    \hline
+    curl & Herramienta de línea de comandos para transferir datos con URL \\
+    \hline
+    unzip & Utilidad para descomprimir archivos .zip \\
+    \hline
+    trimmomatic & Herramienta para el recorte de secuencias de ADN \\
+    \hline
+    fastqc & Programa para el control de calidad de datos de secuencias de alto rendimiento \\
+    \hline
+    wget & Herramienta de línea de comandos para descargar archivos de la web \\
+    \hline
+    spades & Ensamblador de genomas de lectura corta, de novo. \\
+    \hline
+    python3 & Lenguaje de programación Python, versión 3.\\
+    \hline
+    build$-$essential & Conjunto de herramientas de desarrollo, incluyendo el compilador GCC y las bibliotecas necesarias \\
+    \hline
+    Nextflow & Framework para la creación y ejecución de flujos de trabajo bioinformáticos. \\
+    \hline
+    SRA Toolkit & Conjunto de herramientas para descargar y manejar datos de secuencias SRA de NCBI. \\
+    \hline
+    Bowtie2 & Alineador de secuencias para la lecturas de ADN cortas. \\
+    \hline
+    Kraken2 & Sistema de clasificación y análisis taxonómico de secuencias. \\
+    \hline
+    ncbi$-$blast$+$ & Herramientas para realizar búsquedas de alineamiento de secuencias. \\
+    \hline
+    HMMER & Software para la detección de homologías en secuencias biológicas. \\
+    \hline
+    R & Lenguaje de programación y entorno para análisis estadístico y gráficos. \\
+    \hline
+    libcurl4-openssl-dev & Biblioteca de desarrollo para \emph{curl} con soporte para OpenSSL. \\
+    \hline
+    libssl-dev & Biblioteca de desarrollo para OpenSSL, necesario para conexiones seguras. \\
+    \hline
+    libxml2-dev & Biblioteca de desarrollo para XML. \\
+    \hline
+    devtools (R) & Paquete de R para facilitar el desarrollo de paquetes de R. \\
+    \hline
+    XML (R) & Paquete de R para trabajar con datos XML. \\
+    \hline
+    rentrez & Paquete de R para interactuar con las bases de datos de NCBI. \\
+    \hline
+    autoconf & Herramienta para generar scripts de configuración automática. \\
+    \hline
+    git & Sistema de control de versiones. \\
+    \hline
+    VCFtools & Conjunto de herramientas para trabajar con archivos VCF (Variant Call Format). \\
+    \hline
+    BWA & Alineador de secuencias para lecturas cortas. \\
+    \hline
+    libvcflib-tools & Herramientas para manipular archivos VCF. \\
+    \hline
+    libvcflib-dev & Biblioteca de desarrollo para libvcflib-tools. \\
+    \hline
+    freebayes & Detector de variantes genéticas de múltiples muestras. \\
+    \hline
+    vcfR (R) & Paquete de R para la manipulación y análisis de archivos VCF. \\
+    \hline
+    bcftools & Conjunto de herramientas para trabajar con archivos VCF y BCF. \\
+    \hline
+    libdatetime-perl & Módulo de Perl para trabajar con fechas y horas. \\
+    \hline
+    libxml-simple-perl & Módulo de Perl para leer y escribir archivos XML. \\
+    \hline
+    libdigest-md5-perl & Módulo de Perl para crear resúmenes MD5. \\
+    \hline
+    default-jre & Entorno de ejecución de Java por defecto. \\
+    \hline
+    bioperl & Colección de módulos Perl para bioinformática. \\
+    \hline
+    Bio::Perl & Módulo de Perl para secuencias biológicas. \\
+    \hline
+    libidn11 & Biblioteca para el manejo de nombres de dominio internacionalizados. \\
+    \hline
+    gzip & Herramienta de compresión de archivos. \\
+    \hline
+    libjson-perl & Módulo de Perl para trabajar con datos JSON. \\
+    \hline
+    libtext-csv-perl & Módulo de Perl para manipular archivos CSV. \\
+    \hline
+    libpath-tiny-perl & Módulo de Perl para manipular rutas de archivos. \\
+    \hline
+    liblwp-protocol-https-perl & Módulo de Perl para hacer solicitudes HTTP seguras. \\
+    \hline
+    libwww-perl & Módulo de Perl para interactuar con la web. \\
+    \hline
+    cpanminus & Instalador de módulos Perl. \\
+    \hline
+    LWP::Simple (Perl) & Módulo de Perl para hacer solicitudes HTTP sencillas. \\
+    \hline
+    any2fasta & Herramienta para convertir secuencias biológicas a formato FASTA. \\
+    \hline
+    Abricate & Herramienta para la detección de elementos genéticos en secuencias. \\
+    \hline
+\end{longtable}
+
+En el caso de la instalación de Nextflow, SRA Toolkit se instalaron descargando 
+los scripts de instalación y moviéndose al directorio /usr/local/bin. En el caso de Bowtie2, 
+Kraken 2 y Abricate, se descargaron desde GitHub, y se instalaron manualmente añadiendo el 
+binario al path. Por otra parte, HMMER, VCFtools y BWA, se descargaron y se instalaron 
+desde la fuente. Los módulos de BioPerl y Perl se instalaron usando cpan y cpanminus. Los 
+diferentes paquetes de R y R, se instalaron devtools, XML, vcfR desde CRAN y rentrez desde 
+Github.
+
+De esta manera, se garantiza la capacidad del flujo de trabajo de ser portable y 
+reproducible en diferentes ambientes, con el único requerimiento de tener Docker.
 
 \newpage
 \section{Discusión}
@@ -1815,7 +1946,219 @@ la calidad de vida.
 
 \clearpage 
 \section{Anexos}
-\subsection{Anexo 1: Cálculo de vectores de composición}
+\subsection{Anexo 1: Metodología para la búsqueda bibliográfica \emph{elabaración propia}.}
+
+\begin{figure}[ht!]
+    \centering
+    \small
+    \includegraphics[scale=0.35]{anexo1.png}
+    \caption{Metodología utilizada en la búsqueda bibliográfica (\emph{elaboración propia}).} 
+    \label{fig:metodologiaBiblio}
+\end{figure}
+
+\newpage
+\subsection{Anexo 2: Resultados del análisis taxonómico del caso de estudio \emph{elabaración propia}.}
+
+\begin{longtable}{|p{2cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{1.5cm}|p{3cm}|}
+    \caption{Información de cobertura, lecturas, puntos de ruptura, y taxonomía (elaboración propia).} \label{tab:coverage_info} \\
+    \hline
+    \textbf{Cobertura (\%)} & \textbf{N° de lecturas} & \textbf{N° Puntos de ruptura} & \textbf{ID Taxón} & \textbf{Rango} & \textbf{Taxonomía} \\
+    \hline
+    \endfirsthead
+    
+    \multicolumn{6}{c}{\tablename\ \thetable\ -- \textit{Continúa desde la página anterior}} \\
+    \hline
+    \textbf{Cobertura (\%)} & \textbf{N° de lecturas} & \textbf{N° Puntos de ruptura} & \textbf{ID Taxón} & \textbf{Rango} & \textbf{Taxonomía} \\
+    \hline
+    \endhead
+    
+    \hline \multicolumn{6}{r}{\textit{Continúa en la próxima página}} \\
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    94.87 & 37 & 37 & U & 0 & unclassified \\
+    \hline
+    5.13 & 2 & 0 & 1 & root & root \\
+    \hline
+    5.13 & 2 & 0 & 10239 &  & Viruses \\
+    \hline
+    5.13 & 2 & 0 & 2731341 & 1 & Duplodnaviria \\
+    \hline
+    5.13 & 2 & 0 & 2731360 & K & Heunggongvirae \\
+    \hline
+    5.13 & 2 & 0 & 2731618 & P & Uroviricota \\
+    \hline
+    5.13 & 2 & 0 & 2731619 & C & Caudoviricetes \\
+    \hline
+    2.56 & 1 & 0 & 2946167 & F & Peduoviridae \\
+    \hline
+    2.56 & 1 & 0 & 2948951 & G & Wadgaonvirus \\
+    \hline
+    2.56 & 1 & 0 & 2956672 & S & Wadgaonvirus wv5004651 \\
+    \hline
+    2.56 & 1 & 1 & 2716351 & S1 & Escherichia phage 500465-1 \\
+    \hline
+    2.56 & 1 & 0 & 2843442 & G & Radostvirus \\
+    \hline
+    2.56 & 1 & 0 & 2844247 & S & Radostvirus ev099 \\
+    \hline
+    2.56 & 1 & 1 & 2847061 & S1 & Escherichia phage ev099 \\
+    \hline
+\end{longtable}
+
+
+
+\newpage
+\subsection{Anexo 3: Resultados de la anotación funcional del caso de estudio \emph{elabaración propia}.}
+
+
+\begin{longtable}{|p{1.5cm}|p{3cm}|p{5cm}|p{4cm}|}
+    \caption{Resultados de la anotación funcional (elaboración propia).} \label{tab:func_annotation} \\
+    \hline
+    \textbf{ORF} & \textbf{Rango de Nucleótidos} & \textbf{Descripción del Producto Proteico} & \textbf{Resultados BLAST} \\
+    \hline
+    \endfirsthead
+
+    \multicolumn{4}{c}{\tablename\ \thetable\ -- \textit{Continúa desde la página anterior}} \\
+    \hline
+    \textbf{ORF} & \textbf{Rango de Nucleótidos} & \textbf{Descripción del Producto Proteico} & \textbf{Resultados BLAST} \\
+    \hline
+    \endhead
+
+    \hline \multicolumn{4}{r}{\textit{Continúa en la próxima página}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    ORF1 & 553-642 & unnamed protein product & 0 hits found \\
+    \hline
+    ORF2 & 113-673 & unnamed protein product & 0 hits found \\
+    \hline
+    ORF3 & 686-787 & unnamed protein product, partial & 0 hits found \\
+    \hline
+    ORF4 & 432-539 & unnamed protein product & 0 hits found \\
+    \hline
+    ORF5 & 402-232 & unnamed protein product & 0 hits found \\
+    \hline
+    ORF6 & 554-429 & unnamed protein product & 0 hits found \\
+    \hline
+    ORF7 & 571-47 & unnamed protein product & 0 hits found \\
+    \hline
+\end{longtable}
+
+
+\newpage
+\subsection{Anexo 4: Resultados del análisis de llamado de variantes \emph{elabaración propia}.}
+
+
+\begin{longtable}{|l|l|p{8cm}|r|}
+    \caption{Resultados del análisis de llamado de variantes (elaboración propia).} \label{tabla-variantes} \\
+    
+    \hline
+    \textbf{Categoría} & \textbf{ID} & \textbf{Descripción} & \textbf{Valor} \\
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Categoría} & \textbf{ID} & \textbf{Descripción} & \textbf{Valor} \\
+    \hline
+    \endhead
+    
+    \hline \multicolumn{4}{|r|}{\textit{Continúa en la siguiente página}} \\ \hline
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    Número de muestras & SN & number of samples & 1 \\
+    \hline
+    Número de registros & SN & number of records & 90 \\
+    \hline
+    Número de no-ALTs & SN & number of no-ALTs & 0 \\
+    \hline
+    Número de SNPs & SN & number of SNPs & 90 \\
+    \hline
+    Número de MNPs & SN & number of MNPs & 0 \\
+    \hline
+    Número de indels & SN & number of indels & 0 \\
+    \hline
+    Número de otros & SN & number of others & 0 \\
+    \hline
+    Sitios multialélicos & SN & number of multiallelic sites & 0 \\
+    \hline
+    Sitios multialélicos SNP & SN & number of multiallelic SNP sites & 0 \\
+    \hline
+    Transiciones (ts) & TSTV & number of transitions & 61 \\
+    \hline
+    Transversiones (tv) & TSTV & number of transversions & 29 \\
+    \hline
+    Ratio ts/tv & TSTV & transitions/transversions ratio & 2.10 \\
+    \hline
+    Conteo de alelos & SiS & allele count & 1 \\
+    \hline
+    Número de SNPs (SiS) & SiS & number of SNPs & 90 \\
+    \hline
+    Transiciones (SiS) & SiS & number of transitions & 61 \\
+    \hline
+    Transversiones (SiS) & SiS & number of transversions & 29 \\
+    \hline
+    Número de indels (SiS) & SiS & number of indels & 0 \\
+    \hline
+    Consistente con repetición & SiS & repeat-consistent & 0 \\
+    \hline
+    Inconsistente con repetición & SiS & repeat-inconsistent & 0 \\
+    \hline
+    No aplicable (SiS) & SiS & not applicable & 0 \\
+    \hline
+    Frecuencia de alelo & AF & allele frequency & 0.000000 \\
+    \hline
+    Número de SNPs (AF) & AF & number of SNPs & 90 \\
+    \hline
+    Transiciones (AF) & AF & number of transitions & 61 \\
+    \hline
+    Transversiones (AF) & AF & number of transversions & 29 \\
+    \hline
+    Número de indels (AF) & AF & number of indels & 0 \\
+    \hline
+    Calidad media & QUAL & Quality & 30.4 \\
+    \hline
+    Número de SNPs (QUAL) & QUAL & number of SNPs & 90 \\
+    \hline
+    Transiciones (QUAL) & QUAL & number of transitions (1st ALT) & 61 \\
+    \hline
+    Transversiones (QUAL) & QUAL & number of transversions (1st ALT) & 29 \\
+    \hline
+    Tipos de Sustitución & ST & A>C & 9 \\
+    \hline
+    Tipos de Sustitución & ST & A>G & 13 \\
+    \hline
+    Tipos de Sustitución & ST & A>T & 4 \\
+    \hline
+    Tipos de Sustitución & ST & C>A & 1 \\
+    \hline
+    Tipos de Sustitución & ST & C>G & 2 \\
+    \hline
+    Tipos de Sustitución & ST & C>T & 17 \\
+    \hline
+    Tipos de Sustitución & ST & G>A & 13 \\
+    \hline
+    Tipos de Sustitución & ST & G>C & 2 \\
+    \hline
+    Tipos de Sustitución & ST & G>T & 2 \\
+    \hline
+    Tipos de Sustitución & ST & T>A & 6 \\
+    \hline
+    Tipos de Sustitución & ST & T>C & 18 \\
+    \hline
+    Tipos de Sustitución & ST & T>G & 3 \\
+    \hline
+    
+\end{longtable}
+
+
 
 \clearpage
 \singlespacing % reduce el espacio entre citas
