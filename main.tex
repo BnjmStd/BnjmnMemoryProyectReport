@@ -1074,6 +1074,8 @@ alineamiento, o bien a través de la entrada directa de una
 muestra (ver la Fig.\ref{fig:disenoDelFlujoDeTrabajo} en 
 el análisis rápido de bacterias). 
 
+\subsubsection*{Análisis de detección de genes de resistencia antibiótica}
+
 El primer análisis que se puede describir, en razón de su 
 utilización dentro del flujo de trabajo, corresponde al 
 análisis de detección de genes de resistencia antibiótica. 
@@ -1117,6 +1119,9 @@ etapa, sólo se necesita para activar el proceso, la bandera
 \texttt{--dbarg}. Cabe destacar, que esto no impide que otros análisis 
 sean activados por el usuario.
 
+
+\subsubsection*{Análisis taxonómico}
+
 En el caso del análisis taxonómico, se refiere a la 
 identificación de los organismos presentes en una muestra, 
 a partir de sus secuencias de ADN o ARN. 
@@ -1151,6 +1156,8 @@ El usuario para activar la opción debe utilizar \texttt{--taxonomy}, y
 además ingresar con \texttt{--db} la ruta a la base de datos que desee  
 utilizar.
 
+\subsubsection*{Análsis de llamado de variantes}
+
 Un llamado de variantes, es poder identificar diferencias genéticas, 
 como SNPs, pequeñas inserciones o deleciones \emph{(indels)}, comparando 
 las secuencias de una muestra con una referencia. En este caso, el 
@@ -1183,6 +1190,8 @@ podrá realizar, a través del parámetro \texttt{--variantRefId}.
             --variantRef [ruta del genoma de referencia]
     \end{lstlisting}
 \end{center}
+
+\subsubsection*{Análisis para generar una anotación funcional}
 
 El último análisis disponible, dentro del flujo de trabajo, 
 corresponde a  la anotación funcional, que se refiere al 
