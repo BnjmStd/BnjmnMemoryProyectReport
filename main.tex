@@ -33,6 +33,24 @@
 \linespread{1.3} % Espaciado
 \renewcommand\theadfont{\bfseries} % Para que el título de las tablas sea en negrita
 
+
+%
+
+\lstset{
+    language=bash,
+    basicstyle=\ttfamily\footnotesize, % Fuente para el código
+    breaklines=true, % Ajuste automático de líneas largas
+    frame=single, % Cuadro alrededor del código
+    numbers=left, % Números de línea a la izquierda
+    numberstyle=\tiny, % Estilo de los números de línea
+    captionpos=b, % Posición de la leyenda (b para abajo)
+    backgroundcolor=\color{lightgray!20}, % Fondo gris claro
+}
+
+
+%
+
+
 \begin{document}
 
 % Logo
@@ -401,6 +419,7 @@ Desarrollar un Pipeline Bioinformático que integre herramientas  computacionale
 necesarias para el procesamiento y  análisis genómico de bacterias noveles con potencial 
 biotecnológico, permitiendo de esta manera la generación de reportes automatizados.
 \subsection{Objetivos específicos}
+
 \begin{enumerate}
     \item Priorizar los métodos de análisis genómico y anotación funcional 
         principales para la exploración de bacterias noveles con potencial biotecnológico.
@@ -409,7 +428,6 @@ biotecnológico, permitiendo de esta manera la generación de reportes automatiz
     \item Definir estructura del reporte Automatizar la generación de reportes de 
         resultados de secuenciación y de anotación funcional a partir de datos genómicos.
 \end{enumerate}
-
 
 \newpage
 \section{Estado del arte}
@@ -1457,25 +1475,95 @@ la manera de entregarle al usuario la información
 precisa o resumida sobre un análisis o proceso 
 realizado.
 
+En el análsis de llamado de variantes, al tener varios procesos,
+que se ejecutan para llegar al resultado se empleo la estrategia, 
+de solo mostrarle al usuario las estadísticas del resultado final.
+De esta manera, se usará un método propio de \emph{bcftools} para generarlo,
+tal como se muestra a continuación.
+
 % report variant calling : bcftools stats $vcf > report_variant_calling.txt
 
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la generación de estadísticas en el análisis de llamado de variantes \emph{(elaboración propia)}., label=lst:statsVariantCall]
+        bcftools stats $vcf > report_variant_calling.txt
+    \end{lstlisting}
+\end{center}
+
+El comando del List.\ref{lst:statsVariantCall}, representa la evaluación de la funcionalidad de la herramienta,
+dentro de un proceso de Nextflowm que permite la producción de un archivo de texto con estadísticas.
+
+En el caso del análisis de identificación taxonómica, se optó por la utilización del mismo archivo de salida, en la generación
+del informe para el usuario. La implementación dentro de un proceso de Nextflow se puede ver a continuación:
 
 %  kraken2 --db $db --report report_taxonomy.txt $spades_output 
-% 
+\begin{center}
+    \begin{lstlisting}[language=bash, caption=Comando para la generación del reporte de llamado de variantes \emph{(elaboración propia)}., label=lst:statsTaxonomy]
+        kraken2 --db $db --report report_taxonomy.txt $spades_output 
+    \end{lstlisting}
+\end{center}
+
+La anotación funcional tiene un archivo de salida bastante extenso con información que no es clara en un primero momento, 
+y que necesita un mayor análisis. De esta manera, es necesario entregarle al usuario la información que permita conocer si el 
+proceso se llevo a cabo de manera correcta. Así, la estrategia fue quedarse sólo con las lineas del archivo de salida que representen una
+anotación, esta se puede observar a continuación. 
+
 
 %     awk '!/^#/' $directorio > filtered_annotation.txt
 %     echo "Resumen GENERAL de anotaciones:" > report_annotation.txt
 %     echo "El número de anotaciones finales es de: \$(grep -c -v '^#' annotationN.txt)" >> report_annotation.txt
 %     cat filtered_annotation.txt >> report_annotation.txt
 
+\begin{center}
+    \begin{lstlisting}[caption={Comandos para la generación del reporte de anotación funcional \emph{(elaboración propia)}.}, label=lst:statsAnnotation]
+        awk '!/^#/' \$directorio > filtered_annotation.txt \
+        echo "Resumen GENERAL de anotaciones:" > report_annotation.txt \
+        echo "El numero de anotaciones finales es de: \$(grep -c -v '^#' annotationN.txt)" >> report_annotation.txt \
+        cat filtered_annotation.txt >> report_annotation.txt
+    \end{lstlisting}
+\end{center}
+
+De esta manera, eliminamos o filtramos el archivo de salida dejando solo las anotaciones, permitiendo
+al usuario obtener información de que si el proceso fue realizado de manera correcta o no.
+
+En el caso de la salida de el análisis de detección de genes de resistencia antibiótica, al no representar un 
+archivo de texto extenso, y su análisis visual es de fácil interpretación, se utilizará para la 
+generación de de reporte para el usuario.
 
 % abricate $output_spades --db $type --csv > report_arg.txt
+\begin{center}
+    \begin{lstlisting}[caption={Comandos para la generación del reporte de análisis de detección de resistencia antibiótica \emph{(elaboración propia)}.}, label=lst:statsARG]
+        abricate $output_spades --db $type --csv > report_arg.txt
+    \end{lstlisting}
+\end{center}
 
+La herramienta de trimmomatic, presenta la funcionalidad de generar unas estadísticas al finalizar de 
+ejecutarse, de esta manera, para la generación del reporte automatizado final, solo se copiara este archivo.
 
 % cp ${directorio}/stats_summary.txt report_trimmomatic.txt
+\begin{center}
+    \begin{lstlisting}[caption={Comando para el reporte de la ejecución de trimmomatic \emph{(elaboración propia)}.}, label=lst:statsTrimmo]
+        cp ${directorio}/stats_summary.txt report_trimmomatic.txt
+    \end{lstlisting}
+\end{center}
 
+Finalmente, al igual que trimmomatic, Spades presenta un reporte al terminar su trabajo. Así, 
+se utilizará el archivo \emph{params.txt} y el \emph{warnings.log} para que el usuario tenga la mayor cantidad de 
+información resumida en el reporte final.
 
 %  cat ${directorio}/params.txt <(echo) ${directorio}/warnings.log > report_spades.txt
+\begin{center}
+    \begin{lstlisting}[caption={Comando para el reporte de la ejecución de Spades \emph{(elaboración propia)}.}, label=lst:statsSpades]
+        cat ${directorio}/params.txt <(echo) ${directorio}/warnings.log > report_spades.txt
+    \end{lstlisting}
+\end{center}
+
+Todos los archivos, durante la ejecución se irán almacenando en un directorio de nombre \emph{reports/} para que al terminar el proceso principal,
+y antes de terminar la ejecución del flujo de trabajo se genere un reporte automatizado final. Para generar la estructura del informe, se usará 
+el lenguaje de \emph{R} y la biblioteca de \emph{RMarkdown} para realzar un Script.
+
+La estructura del informe, es sencilla, donde estará en primer lugar el nombre del archivo, el nombre del flujo de trabajo y la fecha de realización.
+Posteriormente, se irán inyectando los reportes de los procesos ejecutados en el pdf, se generará una subsección para cada archivo inyectado y se respetará
+el formato de cada uno de ellos.
 
 \subsection{Implementación de los reportes}
 
@@ -1566,7 +1654,6 @@ El flujo de trabajo está alojado dentro de un repositorio de
 GitHub, 
 este sigue una estructura sencilla de organización que 
 se puede ver en la figura a continuación.
-
 \begin{figure}[htbp]
     \centering
     \begin{forest}
@@ -1598,13 +1685,14 @@ se puede ver en la figura a continuación.
             [README.md]
             [docker-compose.yml]
             [nextflow.config]
+            [generate-report.R]
             [script.nf]
         ]
     \end{forest}
     \caption{Estructura del repositorio de trabajo.}
     \label{fig:repositorio}
 \end{figure}
-
+\newpage
 Es una estructura sencilla en donde en el directorio 
 config, se contienen todos los archivos de configuración 
 específicos, en este caso el Dockerfile. En el caso 
@@ -1835,6 +1923,20 @@ instaladas dentro de la imagen de docker.
     any2fasta & Herramienta para convertir secuencias biológicas a formato FASTA. \\
     \hline
     Abricate & Herramienta para la detección de elementos genéticos en secuencias. \\
+    \hline
+    \texttt{rmarkdown} & Paquete de R que permite la creación de documentos dinámicos, informes y presentaciones combinando código R con texto narrativo. \\
+    \hline
+    \texttt{knitr} & Paquete de R que facilita la integración de código R en documentos de varios formatos. \\
+    \hline
+    \texttt{tinytex} & Paquete de R que proporciona una instalación ligera y portátil del sistema TeX Live. \\
+    \hline
+    \texttt{texlive-full} & Distribución completa de LaTeX . \\
+    \hline
+    \texttt{texlive-latex-extra} & Conjunto adicional de paquetes y clases LaTeX q. \\
+    \hline
+    \texttt{texlive-xetex} & Incluye XeTeX, un motor de LaTeX que soporta directamente Unicode y fuentes modernas. \\
+    \hline
+    \texttt{pandoc} & Herramienta de conversión de documentos. \\
     \hline
 \end{longtable}
 
@@ -2193,8 +2295,6 @@ la calidad de vida.
     \hline
     
 \end{longtable}
-
-
 
 \clearpage
 \singlespacing % reduce el espacio entre citas
