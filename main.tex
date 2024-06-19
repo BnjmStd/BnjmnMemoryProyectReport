@@ -1457,6 +1457,26 @@ la manera de entregarle al usuario la información
 precisa o resumida sobre un análisis o proceso 
 realizado.
 
+% report variant calling : bcftools stats $vcf > report_variant_calling.txt
+
+
+%  kraken2 --db $db --report report_taxonomy.txt $spades_output 
+% 
+
+%     awk '!/^#/' $directorio > filtered_annotation.txt
+%     echo "Resumen GENERAL de anotaciones:" > report_annotation.txt
+%     echo "El número de anotaciones finales es de: \$(grep -c -v '^#' annotationN.txt)" >> report_annotation.txt
+%     cat filtered_annotation.txt >> report_annotation.txt
+
+
+% abricate $output_spades --db $type --csv > report_arg.txt
+
+
+% cp ${directorio}/stats_summary.txt report_trimmomatic.txt
+
+
+%  cat ${directorio}/params.txt <(echo) ${directorio}/warnings.log > report_spades.txt
+
 \subsection{Implementación de los reportes}
 
 La implementación de los reportes, planteó un desafío ya que Nextflow 
